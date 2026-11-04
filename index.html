@@ -377,7 +377,7 @@
     <ul>
       <li><span class="chip D">D+6</span> <span class="chip R">R+6</span> How far ahead the leading party is, in percentage points.</li>
       <li><span class="chip D">+3</span> The change in that lead since the last time the seat was on the ballot. Blue moved toward Democrats, red toward Republicans.</li>
-      <li><b>About N ballots left to count</b> An estimate: ballots the county has received but not counted, or what it takes to reach its 2022 turnout, whichever is larger.</li>
+      <li><b>Estimated N ballots remaining</b> How many more ballots it takes for each county to reach its turnout in the last midterm (2022).</li>
       <li><span class="won">✓</span> The winner: called by the news outlets, unopposed, or too far ahead to catch.</li>
       <li><span class="pinb on">★</span> Pin a race to keep it on your Pinned tab.</li>
       <li>Click any race to see every candidate and how the seat voted before. Pick a county at the top to see every race on its ballot.</li>
@@ -1004,9 +1004,8 @@
     const reach = !unopp && gv != null && left != null && gv > left;
     return { lead, gap: g, mgap, unopp, reach, decided: unopp || reach, close: !unopp && !reach && g != null && g < CLOSE };
   }
-  // Ballots still to count in a county, estimated. The larger of: ballots the county has received
-  // but not yet counted (Secretary of State returns report), and what it takes to reach the
-  // county's turnout at the last election of the same kind (2022 for a midterm).
+  // Ballots still to count in a county, estimated as what it takes to reach the county's turnout at
+  // the last election of the same kind (2022 for a midterm), applied to today's registered voters.
   function sameKindYear() {
     const y = +((live && live.election_date) || '2026').slice(0, 4);
     const ys = Object.keys((TH && TH.statewide) || {}).map(Number).filter(v => v < y && (y - v) % 4 === 0);
@@ -1017,19 +1016,20 @@
     if (!t) return null;
     const past = TH && TH.counties[n] && TH.counties[n].county[sameKindYear()];
     const expected = past && past.registered ? t.registered * past.ballots / past.registered : 0;
-    const recv = CTY.party && CTY.party.returned && CTY.party.returned[n] ? CTY.party.returned[n].total : 0;
-    return Math.max(0, Math.round(expected - t.ballots), recv - t.ballots);
+    return Math.max(0, Math.round(expected - t.ballots));
   }
-  // For deciding a race is out of reach: the estimate plus 10%, and never less than 5% of what is counted.
+  // For deciding a race is out of reach, be safe: the estimate plus 10%, ballots the county has already
+  // received but not counted if that's more (turnout can beat 2022), and never under 5% of what is counted.
   function ballotsLeft(n) {
     const left = countyLeft(n), t = CTY && CTY.counties[n] && CTY.counties[n].turnout;
-    return left == null ? null : Math.max(left * 1.1, 0.05 * t.ballots);
+    if (left == null) return null;
+    const recv = CTY.party && CTY.party.returned && CTY.party.returned[n] ? CTY.party.returned[n].total - t.ballots : 0;
+    return Math.max(left * 1.1, recv, 0.05 * t.ballots);
   }
-  // Ballots still to count for a partisan race: AP's own estimate where it has one, otherwise the counties' estimates,
-  // for a district weighted by the share of each county that lies in it (from its last election on these lines).
+  // Ballots still to count for a partisan race, from the counties' estimates: statewide races add them up,
+  // districts weight each county by the share of it in the district (from its last election on these lines).
   function raceLeft(x, ctx) {
     if (x.countyView && ctx) return countyLeft(ctx);
-    if (x.using === 'ap' && x.r.expected_total && !x.filled) return Math.max(0, x.r.expected_total - x.total);
     if (STATEWIDE.has(x.r.office)) return CTY ? Object.keys(CTY.counties).reduce((a, n) => a + (countyLeft(n) || 0), 0) : null;
     for (const y of [2024, 2022]) {
       const rec = hist(y, x.r.office, x.r.district);
@@ -1054,7 +1054,7 @@
     }, 0));
   }
   const roundLeft = v => v >= 10000 ? Math.round(v / 1000) * 1000 : v >= 1000 ? Math.round(v / 100) * 100 : Math.round(v / 10) * 10;
-  const leftNote = v => v == null ? '' : v < 10 ? ' · nearly all counted' : ` · about ${fmt(roundLeft(v))} ballots left to count`;
+  const leftNote = v => v == null ? '' : v < 10 ? ` · at or past ${sameKindYear()} turnout` : ` · estimated ${fmt(roundLeft(v))} ballots remaining`;
   // A contest's share of those: the county's ballots left times the share of its ballots that had this contest.
   function contestLeft(c) {
     if (!c._county) return null;
@@ -1245,7 +1245,7 @@
     const t = CTY && CTY.turnout;
     const close = rs.filter(x => x.cur.m != null && !STATEWIDE.has(x.r.office)).sort((a, b) => Math.abs(a.cur.m) - Math.abs(b.cur.m)).slice(0, 8);
     const turnout = t ? `<div class="card"><h2>Turnout so far</h2><div class="big">${t.pct != null ? t.pct.toFixed(1) + '%' : '–'}</div>
-      <div class="sub">${fmt(t.ballots)} ballots counted of ${fmt(t.registered)} registered voters. About ${fmt(roundLeft(Object.keys(CTY.counties).reduce((a, n) => a + (countyLeft(n) || 0), 0)))} ballots are left to count (estimated). Ballots postmarked by Election Day still count if they arrive within seven days.</div></div>` : '';
+      <div class="sub">${fmt(t.ballots)} ballots counted of ${fmt(t.registered)} registered voters. Estimated ${fmt(roundLeft(Object.keys(CTY.counties).reduce((a, n) => a + (countyLeft(n) || 0), 0)))} ballots remaining, if turnout ends where it did in ${sameKindYear()}. Ballots postmarked by Election Day still count if they arrive within seven days.</div></div>` : '';
     $('#sumBody').innerHTML = `<p class="lede">Oregon's November 3, 2026 general election, as the votes are counted.</p>
       <div class="cards">${$('#cards').innerHTML}${turnout}</div>
       <div class="csec">Closest races</div><div class="clist">${close.map(x => partyRowHTML(x, '')).join('')}</div>
