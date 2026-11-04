@@ -1,0 +1,16 @@
+{
+ "races": {
+  "Governor": {
+   "race": "Governor",
+   "source": "NBC News exit poll page; data provided by The Associated Press",
+   "source_url": "https://www.nbcnews.com/politics/2026-elections/oregon-governor-results#exit-polls",
+   "link_only": true
+  },
+  "U.S. Senate": {
+   "race": "U.S. Senate",
+   "source": "NBC News exit poll page; data provided by The Associated Press",
+   "source_url": "https://www.nbcnews.com/politics/2026-elections/oregon-senate-results#exit-polls",
+   "link_only": true
+  }
+ }
+}

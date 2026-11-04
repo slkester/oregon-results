@@ -1,0 +1,719 @@
+{
+ "source": "Census ACS 2024 5-year (2020-2024) via Census Reporter",
+ "acs_release": "ACS 2024 5-year",
+ "acs_years": "2020-2024",
+ "source_url": "https://censusreporter.org/profiles/04000US41-oregon/",
+ "income_brackets": [
+  "Under $15k",
+  "$15k to $35k",
+  "$35k to $60k",
+  "$60k to $100k",
+  "$100k to $150k",
+  "$150k or more"
+ ],
+ "state": {
+  "population": 4254293,
+  "households": 1718422,
+  "income": 83011,
+  "income_brackets": {
+   "Under $15k": 7.7,
+   "$15k to $35k": 12.4,
+   "$35k to $60k": 16.4,
+   "$60k to $100k": 22.2,
+   "$100k to $150k": 18.5,
+   "$150k or more": 22.8
+  },
+  "degree": 36.8,
+  "women": 50.1,
+  "age_18_29": 19.0,
+  "age_65_up": 23.8,
+  "hispanic": 14.7,
+  "white": 71.4
+ },
+ "counties": {
+  "Baker": {
+   "population": 16840,
+   "households": 7355,
+   "income": 60936,
+   "income_brackets": {
+    "Under $15k": 13.1,
+    "$15k to $35k": 15.5,
+    "$35k to $60k": 20.5,
+    "$60k to $100k": 24.1,
+    "$100k to $150k": 18.8,
+    "$150k or more": 8.0
+   },
+   "degree": 26.1,
+   "women": 48.1,
+   "age_18_29": 12.6,
+   "age_65_up": 35.0,
+   "hispanic": 5.3,
+   "white": 87.8
+  },
+  "Benton": {
+   "population": 96303,
+   "households": 38537,
+   "income": 77702,
+   "income_brackets": {
+    "Under $15k": 11.0,
+    "$15k to $35k": 13.6,
+    "$35k to $60k": 16.0,
+    "$60k to $100k": 19.8,
+    "$100k to $150k": 17.2,
+    "$150k or more": 22.4
+   },
+   "degree": 54.2,
+   "women": 49.6,
+   "age_18_29": 34.3,
+   "age_65_up": 21.3,
+   "hispanic": 9.4,
+   "white": 76.2
+  },
+  "Clackamas": {
+   "population": 423975,
+   "households": 163845,
+   "income": 103517,
+   "income_brackets": {
+    "Under $15k": 5.2,
+    "$15k to $35k": 9.0,
+    "$35k to $60k": 14.0,
+    "$60k to $100k": 20.3,
+    "$100k to $150k": 19.9,
+    "$150k or more": 31.6
+   },
+   "degree": 40.5,
+   "women": 50.3,
+   "age_18_29": 16.2,
+   "age_65_up": 25.1,
+   "hispanic": 10.1,
+   "white": 76.5
+  },
+  "Clatsop": {
+   "population": 41363,
+   "households": 17984,
+   "income": 71822,
+   "income_brackets": {
+    "Under $15k": 7.9,
+    "$15k to $35k": 14.9,
+    "$35k to $60k": 19.0,
+    "$60k to $100k": 24.4,
+    "$100k to $150k": 15.0,
+    "$150k or more": 18.8
+   },
+   "degree": 28.7,
+   "women": 50.3,
+   "age_18_29": 14.4,
+   "age_65_up": 30.5,
+   "hispanic": 10.0,
+   "white": 80.4
+  },
+  "Columbia": {
+   "population": 53493,
+   "households": 20928,
+   "income": 87458,
+   "income_brackets": {
+    "Under $15k": 6.2,
+    "$15k to $35k": 10.7,
+    "$35k to $60k": 16.7,
+    "$60k to $100k": 25.3,
+    "$100k to $150k": 21.0,
+    "$150k or more": 20.1
+   },
+   "degree": 19.8,
+   "women": 49.0,
+   "age_18_29": 15.2,
+   "age_65_up": 25.2,
+   "hispanic": 6.7,
+   "white": 84.3
+  },
+  "Coos": {
+   "population": 64827,
+   "households": 28731,
+   "income": 62143,
+   "income_brackets": {
+    "Under $15k": 10.7,
+    "$15k to $35k": 19.6,
+    "$35k to $60k": 18.3,
+    "$60k to $100k": 22.6,
+    "$100k to $150k": 16.7,
+    "$150k or more": 12.1
+   },
+   "degree": 22.6,
+   "women": 50.2,
+   "age_18_29": 14.1,
+   "age_65_up": 34.1,
+   "hispanic": 7.3,
+   "white": 82.1
+  },
+  "Crook": {
+   "population": 26277,
+   "households": 10782,
+   "income": 81965,
+   "income_brackets": {
+    "Under $15k": 4.6,
+    "$15k to $35k": 12.9,
+    "$35k to $60k": 14.5,
+    "$60k to $100k": 30.9,
+    "$100k to $150k": 18.0,
+    "$150k or more": 19.0
+   },
+   "degree": 21.3,
+   "women": 50.6,
+   "age_18_29": 13.3,
+   "age_65_up": 31.4,
+   "hispanic": 7.9,
+   "white": 85.8
+  },
+  "Curry": {
+   "population": 23381,
+   "households": 11159,
+   "income": 62244,
+   "income_brackets": {
+    "Under $15k": 6.5,
+    "$15k to $35k": 21.1,
+    "$35k to $60k": 21.0,
+    "$60k to $100k": 20.6,
+    "$100k to $150k": 17.2,
+    "$150k or more": 13.5
+   },
+   "degree": 22.1,
+   "women": 51.9,
+   "age_18_29": 8.8,
+   "age_65_up": 42.7,
+   "hispanic": 7.7,
+   "white": 82.2
+  },
+  "Deschutes": {
+   "population": 206334,
+   "households": 84933,
+   "income": 92758,
+   "income_brackets": {
+    "Under $15k": 5.7,
+    "$15k to $35k": 9.7,
+    "$35k to $60k": 15.4,
+    "$60k to $100k": 22.6,
+    "$100k to $150k": 21.0,
+    "$150k or more": 25.7
+   },
+   "degree": 45.0,
+   "women": 50.3,
+   "age_18_29": 15.5,
+   "age_65_up": 26.2,
+   "hispanic": 9.2,
+   "white": 83.5
+  },
+  "Douglas": {
+   "population": 112072,
+   "households": 47519,
+   "income": 61310,
+   "income_brackets": {
+    "Under $15k": 9.1,
+    "$15k to $35k": 18.1,
+    "$35k to $60k": 21.6,
+    "$60k to $100k": 23.5,
+    "$100k to $150k": 15.3,
+    "$150k or more": 12.5
+   },
+   "degree": 19.3,
+   "women": 50.3,
+   "age_18_29": 14.7,
+   "age_65_up": 32.7,
+   "hispanic": 6.6,
+   "white": 84.2
+  },
+  "Gilliam": {
+   "population": 1971,
+   "households": 875,
+   "income": 66917,
+   "income_brackets": {
+    "Under $15k": 15.0,
+    "$15k to $35k": 14.2,
+    "$35k to $60k": 15.7,
+    "$60k to $100k": 27.5,
+    "$100k to $150k": 16.1,
+    "$150k or more": 11.5
+   },
+   "degree": 21.0,
+   "women": 46.6,
+   "age_18_29": 10.6,
+   "age_65_up": 40.0,
+   "hispanic": 9.4,
+   "white": 80.0
+  },
+  "Grant": {
+   "population": 7209,
+   "households": 3444,
+   "income": 59450,
+   "income_brackets": {
+    "Under $15k": 7.9,
+    "$15k to $35k": 17.9,
+    "$35k to $60k": 25.1,
+    "$60k to $100k": 23.6,
+    "$100k to $150k": 15.8,
+    "$150k or more": 9.8
+   },
+   "degree": 17.7,
+   "women": 49.7,
+   "age_18_29": 12.0,
+   "age_65_up": 39.1,
+   "hispanic": 4.2,
+   "white": 86.9
+  },
+  "Harney": {
+   "population": 7499,
+   "households": 3129,
+   "income": 55208,
+   "income_brackets": {
+    "Under $15k": 10.4,
+    "$15k to $35k": 20.7,
+    "$35k to $60k": 20.9,
+    "$60k to $100k": 23.1,
+    "$100k to $150k": 13.1,
+    "$150k or more": 11.7
+   },
+   "degree": 18.3,
+   "women": 49.5,
+   "age_18_29": 15.6,
+   "age_65_up": 32.4,
+   "hispanic": 5.6,
+   "white": 84.6
+  },
+  "Hood River": {
+   "population": 23905,
+   "households": 8939,
+   "income": 88947,
+   "income_brackets": {
+    "Under $15k": 5.8,
+    "$15k to $35k": 11.9,
+    "$35k to $60k": 15.9,
+    "$60k to $100k": 20.6,
+    "$100k to $150k": 16.3,
+    "$150k or more": 29.5
+   },
+   "degree": 41.0,
+   "women": 50.2,
+   "age_18_29": 16.7,
+   "age_65_up": 23.1,
+   "hispanic": 30.6,
+   "white": 61.8
+  },
+  "Jackson": {
+   "population": 222645,
+   "households": 92035,
+   "income": 73999,
+   "income_brackets": {
+    "Under $15k": 7.9,
+    "$15k to $35k": 15.1,
+    "$35k to $60k": 18.6,
+    "$60k to $100k": 23.6,
+    "$100k to $150k": 18.2,
+    "$150k or more": 16.5
+   },
+   "degree": 31.7,
+   "women": 51.0,
+   "age_18_29": 16.4,
+   "age_65_up": 29.5,
+   "hispanic": 14.6,
+   "white": 76.8
+  },
+  "Jefferson": {
+   "population": 25203,
+   "households": 8814,
+   "income": 76260,
+   "income_brackets": {
+    "Under $15k": 10.3,
+    "$15k to $35k": 12.0,
+    "$35k to $60k": 15.5,
+    "$60k to $100k": 27.8,
+    "$100k to $150k": 17.0,
+    "$150k or more": 17.3
+   },
+   "degree": 21.2,
+   "women": 48.0,
+   "age_18_29": 17.6,
+   "age_65_up": 25.7,
+   "hispanic": 21.3,
+   "white": 57.3
+  },
+  "Josephine": {
+   "population": 88179,
+   "households": 36715,
+   "income": 60098,
+   "income_brackets": {
+    "Under $15k": 10.0,
+    "$15k to $35k": 18.5,
+    "$35k to $60k": 21.4,
+    "$60k to $100k": 21.3,
+    "$100k to $150k": 14.7,
+    "$150k or more": 14.1
+   },
+   "degree": 19.7,
+   "women": 51.2,
+   "age_18_29": 13.9,
+   "age_65_up": 33.7,
+   "hispanic": 8.8,
+   "white": 82.9
+  },
+  "Klamath": {
+   "population": 70247,
+   "households": 28999,
+   "income": 58830,
+   "income_brackets": {
+    "Under $15k": 14.4,
+    "$15k to $35k": 16.9,
+    "$35k to $60k": 19.6,
+    "$60k to $100k": 23.3,
+    "$100k to $150k": 14.6,
+    "$150k or more": 11.2
+   },
+   "degree": 22.7,
+   "women": 49.8,
+   "age_18_29": 17.5,
+   "age_65_up": 28.5,
+   "hispanic": 13.9,
+   "white": 74.4
+  },
+  "Lake": {
+   "population": 8267,
+   "households": 3480,
+   "income": 62787,
+   "income_brackets": {
+    "Under $15k": 12.2,
+    "$15k to $35k": 20.6,
+    "$35k to $60k": 15.9,
+    "$60k to $100k": 26.6,
+    "$100k to $150k": 17.5,
+    "$150k or more": 7.2
+   },
+   "degree": 21.1,
+   "women": 44.6,
+   "age_18_29": 13.5,
+   "age_65_up": 30.7,
+   "hispanic": 10.8,
+   "white": 78.8
+  },
+  "Lane": {
+   "population": 384207,
+   "households": 160445,
+   "income": 71544,
+   "income_brackets": {
+    "Under $15k": 10.0,
+    "$15k to $35k": 14.3,
+    "$35k to $60k": 19.1,
+    "$60k to $100k": 22.9,
+    "$100k to $150k": 18.4,
+    "$150k or more": 15.3
+   },
+   "degree": 34.0,
+   "women": 50.6,
+   "age_18_29": 23.5,
+   "age_65_up": 25.3,
+   "hispanic": 10.5,
+   "white": 78.2
+  },
+  "Lincoln": {
+   "population": 50964,
+   "households": 23115,
+   "income": 63165,
+   "income_brackets": {
+    "Under $15k": 9.1,
+    "$15k to $35k": 17.0,
+    "$35k to $60k": 21.0,
+    "$60k to $100k": 25.0,
+    "$100k to $150k": 15.8,
+    "$150k or more": 12.2
+   },
+   "degree": 28.6,
+   "women": 51.9,
+   "age_18_29": 12.2,
+   "age_65_up": 37.7,
+   "hispanic": 10.3,
+   "white": 78.3
+  },
+  "Linn": {
+   "population": 130706,
+   "households": 50729,
+   "income": 76329,
+   "income_brackets": {
+    "Under $15k": 7.9,
+    "$15k to $35k": 14.0,
+    "$35k to $60k": 18.1,
+    "$60k to $100k": 25.3,
+    "$100k to $150k": 20.7,
+    "$150k or more": 13.9
+   },
+   "degree": 21.6,
+   "women": 50.1,
+   "age_18_29": 18.3,
+   "age_65_up": 25.0,
+   "hispanic": 10.7,
+   "white": 81.3
+  },
+  "Malheur": {
+   "population": 31954,
+   "households": 10292,
+   "income": 54519,
+   "income_brackets": {
+    "Under $15k": 9.8,
+    "$15k to $35k": 24.5,
+    "$35k to $60k": 19.4,
+    "$60k to $100k": 23.4,
+    "$100k to $150k": 13.3,
+    "$150k or more": 9.7
+   },
+   "degree": 15.2,
+   "women": 45.1,
+   "age_18_29": 21.6,
+   "age_65_up": 22.9,
+   "hispanic": 34.0,
+   "white": 60.2
+  },
+  "Marion": {
+   "population": 349244,
+   "households": 126870,
+   "income": 77351,
+   "income_brackets": {
+    "Under $15k": 7.1,
+    "$15k to $35k": 13.2,
+    "$35k to $60k": 17.7,
+    "$60k to $100k": 24.3,
+    "$100k to $150k": 19.4,
+    "$150k or more": 18.2
+   },
+   "degree": 26.0,
+   "women": 49.8,
+   "age_18_29": 21.2,
+   "age_65_up": 21.9,
+   "hispanic": 29.0,
+   "white": 60.7
+  },
+  "Morrow": {
+   "population": 12300,
+   "households": 4326,
+   "income": 75448,
+   "income_brackets": {
+    "Under $15k": 7.7,
+    "$15k to $35k": 13.2,
+    "$35k to $60k": 21.8,
+    "$60k to $100k": 22.4,
+    "$100k to $150k": 20.6,
+    "$150k or more": 14.3
+   },
+   "degree": 10.1,
+   "women": 49.4,
+   "age_18_29": 20.7,
+   "age_65_up": 22.7,
+   "hispanic": 42.0,
+   "white": 52.5
+  },
+  "Multnomah": {
+   "population": 801477,
+   "households": 349803,
+   "income": 88766,
+   "income_brackets": {
+    "Under $15k": 8.5,
+    "$15k to $35k": 11.1,
+    "$35k to $60k": 15.1,
+    "$60k to $100k": 20.5,
+    "$100k to $150k": 17.6,
+    "$150k or more": 27.2
+   },
+   "degree": 48.9,
+   "women": 50.3,
+   "age_18_29": 19.5,
+   "age_65_up": 17.9,
+   "hispanic": 13.5,
+   "white": 65.2
+  },
+  "Polk": {
+   "population": 89662,
+   "households": 32986,
+   "income": 85118,
+   "income_brackets": {
+    "Under $15k": 9.6,
+    "$15k to $35k": 10.2,
+    "$35k to $60k": 16.1,
+    "$60k to $100k": 21.0,
+    "$100k to $150k": 19.9,
+    "$150k or more": 23.2
+   },
+   "degree": 31.2,
+   "women": 50.8,
+   "age_18_29": 23.5,
+   "age_65_up": 24.3,
+   "hispanic": 15.6,
+   "white": 73.9
+  },
+  "Sherman": {
+   "population": 1938,
+   "households": 804,
+   "income": 60161,
+   "income_brackets": {
+    "Under $15k": 10.3,
+    "$15k to $35k": 23.0,
+    "$35k to $60k": 16.4,
+    "$60k to $100k": 21.4,
+    "$100k to $150k": 19.3,
+    "$150k or more": 9.6
+   },
+   "degree": 16.0,
+   "women": 49.3,
+   "age_18_29": 16.3,
+   "age_65_up": 26.6,
+   "hispanic": 4.4,
+   "white": 85.4
+  },
+  "Tillamook": {
+   "population": 27496,
+   "households": 11936,
+   "income": 69105,
+   "income_brackets": {
+    "Under $15k": 10.1,
+    "$15k to $35k": 15.5,
+    "$35k to $60k": 17.9,
+    "$60k to $100k": 25.8,
+    "$100k to $150k": 16.6,
+    "$150k or more": 14.1
+   },
+   "degree": 26.2,
+   "women": 49.3,
+   "age_18_29": 12.5,
+   "age_65_up": 34.2,
+   "hispanic": 11.4,
+   "white": 81.3
+  },
+  "Umatilla": {
+   "population": 79940,
+   "households": 28707,
+   "income": 67728,
+   "income_brackets": {
+    "Under $15k": 7.9,
+    "$15k to $35k": 15.2,
+    "$35k to $60k": 20.8,
+    "$60k to $100k": 25.6,
+    "$100k to $150k": 16.0,
+    "$150k or more": 14.5
+   },
+   "degree": 18.3,
+   "women": 47.9,
+   "age_18_29": 21.3,
+   "age_65_up": 21.7,
+   "hispanic": 29.7,
+   "white": 61.5
+  },
+  "Union": {
+   "population": 26144,
+   "households": 10900,
+   "income": 65661,
+   "income_brackets": {
+    "Under $15k": 10.7,
+    "$15k to $35k": 15.4,
+    "$35k to $60k": 20.4,
+    "$60k to $100k": 22.2,
+    "$100k to $150k": 17.6,
+    "$150k or more": 13.7
+   },
+   "degree": 26.1,
+   "women": 50.4,
+   "age_18_29": 21.6,
+   "age_65_up": 27.2,
+   "hispanic": 5.5,
+   "white": 85.8
+  },
+  "Wallowa": {
+   "population": 7553,
+   "households": 3387,
+   "income": 67112,
+   "income_brackets": {
+    "Under $15k": 6.8,
+    "$15k to $35k": 15.6,
+    "$35k to $60k": 23.6,
+    "$60k to $100k": 28.0,
+    "$100k to $150k": 12.5,
+    "$150k or more": 13.6
+   },
+   "degree": 38.2,
+   "women": 51.2,
+   "age_18_29": 10.0,
+   "age_65_up": 36.8,
+   "hispanic": 4.2,
+   "white": 89.2
+  },
+  "Wasco": {
+   "population": 26552,
+   "households": 10563,
+   "income": 64175,
+   "income_brackets": {
+    "Under $15k": 6.8,
+    "$15k to $35k": 19.0,
+    "$35k to $60k": 20.9,
+    "$60k to $100k": 24.2,
+    "$100k to $150k": 16.3,
+    "$150k or more": 12.9
+   },
+   "degree": 22.4,
+   "women": 49.5,
+   "age_18_29": 17.3,
+   "age_65_up": 27.2,
+   "hispanic": 20.6,
+   "white": 70.8
+  },
+  "Washington": {
+   "population": 603947,
+   "households": 235406,
+   "income": 107772,
+   "income_brackets": {
+    "Under $15k": 4.8,
+    "$15k to $35k": 8.3,
+    "$35k to $60k": 11.8,
+    "$60k to $100k": 21.1,
+    "$100k to $150k": 20.2,
+    "$150k or more": 33.7
+   },
+   "degree": 47.5,
+   "women": 50.1,
+   "age_18_29": 19.6,
+   "age_65_up": 18.8,
+   "hispanic": 18.6,
+   "white": 60.0
+  },
+  "Wheeler": {
+   "population": 1485,
+   "households": 703,
+   "income": 55284,
+   "income_brackets": {
+    "Under $15k": 5.7,
+    "$15k to $35k": 22.3,
+    "$35k to $60k": 29.3,
+    "$60k to $100k": 21.9,
+    "$100k to $150k": 10.7,
+    "$150k or more": 10.1
+   },
+   "degree": 18.8,
+   "women": 52.3,
+   "age_18_29": 11.1,
+   "age_65_up": 44.1,
+   "hispanic": 4.8,
+   "white": 83.3
+  },
+  "Yamhill": {
+   "population": 108734,
+   "households": 39247,
+   "income": 90063,
+   "income_brackets": {
+    "Under $15k": 7.4,
+    "$15k to $35k": 11.1,
+    "$35k to $60k": 14.8,
+    "$60k to $100k": 22.8,
+    "$100k to $150k": 20.2,
+    "$150k or more": 23.8
+   },
+   "degree": 29.6,
+   "women": 49.6,
+   "age_18_29": 20.2,
+   "age_65_up": 23.9,
+   "hispanic": 17.6,
+   "white": 72.7
+  }
+ }
+}

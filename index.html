@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oregon Results Desk</title>
+<meta name="description" content="Oregon 2026 general election results with point shift against past elections and the party breakdown of the Legislature.">
+<style>
+  :root {
+    --bg: #f3f5f9; --card: #ffffff; --fg: #1b2333; --muted: #5d6779; --line: #dfe4ec; --line2: #eef1f6;
+    --bar: #24508f; --bar-fg: #ffffff;
+    --dem: #1f5fbf; --dem-bg: #e3edfb; --dem-soft: #9dbbe8;
+    --rep: #c4312b; --rep-bg: #fbe5e3; --rep-soft: #eba7a2;
+    --tie-bg: #eceff4; --oth: #8b93a1; --warn: #a15c00; --hl: #fff0a3; --win: #1a7f37;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11151c; --card: #1a202a; --fg: #e7ebf2; --muted: #9aa4b5; --line: #2b3340; --line2: #222935;
+      --bar: #1c3a66; --bar-fg: #ffffff;
+      --dem: #7fadf2; --dem-bg: #1b2d4a; --dem-soft: #3f6aa8;
+      --rep: #f08a83; --rep-bg: #45201f; --rep-soft: #9c4a45;
+      --tie-bg: #262d39; --oth: #7d8697; --warn: #e3a64b; --hl: #4d4214; --win: #57c27a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; }
+  .topbar { background: var(--bar); color: var(--bar-fg); }
+  .topbar .in { max-width: 1320px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; }
+  .topbar h1 { margin: 0; font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; }
+  .topbar .src { font-size: .875rem; opacity: .9; display: flex; gap: 6px 16px; flex-wrap: wrap; }
+  .topbar .src b { font-weight: 600; }
+  .stale { color: #ffd38a; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 20px 24px 40px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h2 { margin: 0 0 2px; font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .card .big { font-size: 1.6rem; font-weight: 750; letter-spacing: -.02em; margin: 4px 0 2px; }
+  .card .sub { font-size: .875rem; color: var(--muted); }
+  .seatbar { position: relative; display: flex; height: 26px; border-radius: 5px; overflow: hidden; margin: 12px 0 6px; background: var(--tie-bg); }
+  .seatbar span { display: block; height: 100%; }
+  .seatbar .dc { background: var(--dem); } .seatbar .dl { background: var(--dem-soft); }
+  .seatbar .rl { background: var(--rep-soft); } .seatbar .rc { background: var(--rep); }
+  .seatbar .ho { background-image: repeating-linear-gradient(45deg, transparent 0 4px, rgba(255,255,255,.35) 4px 7px); }
+  .seatbar .maj { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); }
+  .seatnums { display: flex; justify-content: space-between; font-size: .875rem; font-variant-numeric: tabular-nums; }
+  .seatnums .d { color: var(--dem); font-weight: 700; } .seatnums .r { color: var(--rep); font-weight: 700; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .8125rem; color: var(--muted); margin-top: 8px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+  .race-mini { display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; font-size: .9375rem; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .race-mini .nm small { color: var(--muted); }
+
+  .cpick { display: flex; align-items: center; gap: 8px; font-size: .875rem; font-weight: 600; }
+  .cpick select { font: inherit; font-size: .9375rem; color: var(--fg); background: var(--card); border: 0; border-radius: 7px; padding: 6px 10px; min-width: 170px; }
+  .cnote { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--bar); border-radius: 8px; padding: 8px 12px; font-size: .9375rem; margin-bottom: 10px; }
+  .chead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
+  .chead h2 { margin: 0; font-size: 1.6rem; letter-spacing: -.01em; }
+  .chead .sub { font-size: .9375rem; color: var(--muted); }
+  .chead .tnum { text-align: right; }
+  .chead .tnum .big { font-size: 1.6rem; font-weight: 750; }
+  .csec { margin: 18px 0 8px; font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .clist { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .crow { display: grid; grid-template-columns: minmax(180px, 1.3fr) minmax(220px, 2fr) 64px 56px 60px 84px; gap: 6px 12px; align-items: center; padding: 9px 14px; border-bottom: 1px solid var(--line2); font-size: .9375rem; }
+  .crow:last-child { border-bottom: 0; }
+  .crow .rn { font-weight: 700; }
+  .crow .rn small { display: block; font-weight: 500; color: var(--muted); font-size: .8125rem; }
+  .crow .res { display: flex; flex-wrap: wrap; gap: 4px 14px; font-variant-numeric: tabular-nums; }
+  .crow .res span b { font-weight: 700; }
+  .crow .res .lead { font-weight: 600; }
+  .crow .res .dim { color: var(--muted); }
+  .crow .res.wide { grid-column: 2 / -1; }
+  .crow .res.mid { grid-column: 2 / -3; }
+  .won { color: var(--win); font-weight: 800; margin-right: 4px; }
+  .pin.won { margin-right: 0; font-size: .875rem; }
+  .crow .st { grid-column: -3 / -1; text-align: right; white-space: nowrap; }
+  .crow .span { grid-column: 2 / -1; font-size: .875rem; color: var(--muted); margin-top: -3px; }
+  .crow .span b { color: var(--fg); font-weight: 600; }
+  .alert.close { background: var(--hl); color: var(--fg); }
+  .alert.diff { background: transparent; color: var(--warn); border-color: var(--warn); }
+  .cfilt { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font-size: .875rem; margin: 16px 0 0; }
+  .cfilt .lbl { font-weight: 700; color: var(--muted); font-size: .875rem; letter-spacing: .06em; text-transform: uppercase; }
+  .ctabs { display: flex; gap: 4px; margin: 0 0 6px; border-bottom: 2px solid var(--line); }
+  .ctabs button { font: inherit; font-size: 1rem; font-weight: 600; color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 8px 14px; cursor: pointer; }
+  .ctabs button.on { color: var(--fg); border-bottom-color: var(--bar); }
+  .ctabs button:hover { color: var(--fg); }
+  .chead .who { font-size: .875rem; margin-top: 6px; color: var(--fg); white-space: normal; max-width: none; overflow: visible; } .chead .who .dim { color: var(--muted); }
+  .gpick { display: flex; gap: 4px; margin-bottom: 12px; }
+  .gpick button { font: inherit; font-size: .9375rem; font-weight: 600; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 7px; padding: 6px 12px; cursor: pointer; }
+  .gpick button.on { background: var(--fg); color: var(--card); border-color: var(--fg); }
+  table.gt td.grp { font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 16px; }
+  table.gt td small { display: block; color: var(--muted); font-size: .8125rem; }
+  table.gt td, table.gt th { white-space: nowrap; }
+  table.gt.many td, table.gt.many th { padding: 6px 7px; font-size: .875rem; }
+  table.gt th[data-s]:hover { color: var(--fg); }
+  .gpick span { display: inline-block; }
+  .crow .k { text-align: center; white-space: nowrap; }
+  .crow .k.end { text-align: right; }
+  @media (max-width: 700px) { .crow { grid-template-columns: repeat(3, auto) 1fr; } .crow .rn, .crow .res, .crow .res.wide, .crow .res.mid, .crow .st, .crow .span { grid-column: 1 / -1; } .crow .k, .crow .k.end, .crow .st { text-align: left; } }
+  .tgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr)); gap: 12px; align-items: start; }
+  table.tt { min-width: 0; }
+  .tgrid > .tablewrap:first-child { grid-column: 1 / -1; }
+  table.tt th, table.tt td { padding: 6px 10px; }
+  table.tt td.r, table.tt th.r { text-align: right; }
+  table.tt td:first-child { white-space: nowrap; }
+  table.tt tr.now td { font-weight: 700; background: var(--line2); }
+  table.tt tr.tot td { font-weight: 700; border-top: 2px solid var(--line); }
+  table.tt .dim { color: var(--muted); font-weight: 500; }
+  table.tt tr.tog td { padding: 0; }
+  table.tt tr.tog button { width: 100%; text-align: left; font: inherit; font-size: .875rem; font-weight: 600; color: var(--muted); background: none; border: 0; padding: 6px 10px; cursor: pointer; }
+  table.tt tr.tog button:hover { color: var(--fg); }
+  details.prec { margin-top: 12px; }
+  details.prec > summary { cursor: pointer; font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 6px 0; }
+  details.prec .pbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: .875rem; margin: 6px 0 10px; }
+  details.prec select { font: inherit; font-size: .9375rem; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 7px; padding: 6px 10px; }
+  .tnote { font-size: .875rem; color: var(--muted); margin-top: 6px; }
+  .refresh { font: inherit; font-size: .9375rem; font-weight: 600; color: var(--bar); background: var(--card); border: 0; border-radius: 7px; padding: 6px 12px; cursor: pointer; }
+  .refresh[disabled] { opacity: .7; cursor: progress; }
+  .views { display: flex; gap: 4px; background: rgba(255,255,255,.12); padding: 3px; border-radius: 9px; }
+  .views button { font: inherit; font-size: .9375rem; font-weight: 600; color: var(--bar-fg); background: transparent; border: 0; border-radius: 7px; padding: 6px 12px; cursor: pointer; opacity: .85; }
+  .views button.on { background: var(--card); color: var(--fg); opacity: 1; }
+  .ctygroup h2 { font-size: 1.05rem; margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--line); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .ctygroup h2 small { font-weight: 500; color: var(--muted); font-size: .875rem; }
+  .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px; }
+  .contest { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .contest .cat { font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .contest h3 { font-size: 1rem; margin: 2px 0 8px; line-height: 1.25; }
+  .contest .c-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 10px; font-size: .875rem; margin: 5px 0 1px; font-variant-numeric: tabular-nums; }
+  .contest .c-row .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .contest .c-row.lead .nm { font-weight: 700; }
+  .contest .c-row .v { color: var(--muted); }
+  .contest .c-row .v b { color: var(--fg); }
+  .contest .track { height: 6px; background: var(--tie-bg); border-radius: 3px; overflow: hidden; }
+  .contest .track span { display: block; height: 100%; border-radius: 3px; background: var(--muted); }
+  .contest .track .DEM { background: var(--dem); } .contest .track .REP { background: var(--rep); } .contest .track .NP { background: var(--bar); }
+  .contest .track .YES { background: var(--bar); } .contest .track .NO { background: var(--oth); }
+  .contest .foot { font-size: .8125rem; color: var(--muted); margin-top: 8px; }
+  .contest .more { font-size: .8125rem; color: var(--muted); margin-top: 4px; }
+  [data-k] { cursor: pointer; }
+  .pinb { font: inherit; font-size: 1.05rem; line-height: 1; color: var(--muted); background: none; border: 0; padding: 0 6px 0 0; cursor: pointer; vertical-align: -1px; }
+  .pinb.on { color: #d4a017; }
+  .pinb:hover { color: #d4a017; }
+  .contest .pinb { float: right; padding: 0 0 0 6px; }
+  .crow[data-k]:hover { background: var(--line2); }
+  .crow.open { background: var(--line2); border-bottom: 0; }
+  .caret { display: inline-block; width: 12px; color: var(--muted); font-size: .8125rem; }
+  .cdet { background: var(--line2); padding: 4px 14px 14px 26px; border-bottom: 1px solid var(--line); font-size: .9375rem; cursor: auto; }
+  .cdet:last-child { border-bottom: 0; }
+  .contest.open { grid-column: 1 / -1; }
+  .contest .cdet { margin: 10px -14px -12px; padding: 10px 14px 12px; border-radius: 0 0 10px 10px; border-bottom: 0; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 2px 14px; font-size: .875rem; max-width: 480px; max-height: 340px; overflow: auto; font-variant-numeric: tabular-nums; }
+  .split .h { font-size: .8125rem; font-weight: 700; color: var(--muted); }
+  .split .here { font-weight: 700; }
+  .split .r { text-align: right; }
+  .ptag { font-size: .8125rem; font-weight: 700; margin-left: 4px; }
+  .ptag.DEM { color: var(--dem); } .ptag.REP { color: var(--rep); } .ptag.oth { color: var(--muted); }
+  table.turn { min-width: 640px; }
+  .tbar { display: flex; align-items: center; gap: 10px; min-width: 220px; }
+  .tbar .track { flex: 1; height: 10px; background: var(--tie-bg); border-radius: 5px; overflow: hidden; }
+  .tbar .track span { display: block; height: 100%; background: var(--bar); border-radius: 5px; }
+  .tbar b { min-width: 52px; text-align: right; }
+  .linkish { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; color: var(--fg); cursor: pointer; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tabs button { font: inherit; font-size: .9375rem; font-weight: 600; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+  .tabs button.on { background: var(--bar); border-color: var(--bar); color: var(--bar-fg); }
+  .where { font-size: .8125rem; color: var(--muted); margin-top: 1px; white-space: nowrap; max-width: 300px; overflow: hidden; text-overflow: ellipsis; }
+  .checks { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 28px; margin-bottom: 10px; }
+  .checks .grp { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+  .checks .grp > b { font-size: .8125rem; color: var(--muted); margin-right: 4px; }
+  .ck { display: inline-flex; align-items: center; gap: 6px; font-size: .9375rem; font-weight: 600; padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; user-select: none; }
+  .ck input { margin: 0; accent-color: var(--bar); }
+  .ck.D { color: var(--dem); } .ck.R { color: var(--rep); }
+  .ck:has(input:checked) { background: var(--tie-bg); border-color: var(--muted); }
+  .ck.D:has(input:checked) { background: var(--dem-bg); border-color: var(--dem); }
+  .ck.R:has(input:checked) { background: var(--rep-bg); border-color: var(--rep); }
+  .ck .n { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .controls { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: flex-end; margin-bottom: 10px; }
+  .controls label { display: flex; flex-direction: column; gap: 4px; font-size: .8125rem; font-weight: 600; color: var(--muted); }
+  .controls select, .controls input { font: inherit; font-size: .9375rem; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 7px; padding: 7px 10px; min-width: 150px; }
+  .controls input { min-width: 200px; }
+  .controls .count { margin-left: auto; font-size: .875rem; font-weight: 600; background: var(--tie-bg); padding: 6px 10px; border-radius: 7px; }
+  .keyline { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: .875rem; color: var(--muted); margin: 0 2px 10px; }
+  .keyline i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+  .tablewrap { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; font-variant-numeric: tabular-nums; }
+  th { position: sticky; top: 0; background: var(--card); text-align: left; font-size: .8125rem; font-weight: 700; color: var(--muted); padding: 10px 8px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+  th.c, td.c { text-align: center; }
+  td { padding: 7px 8px; border-bottom: 1px solid var(--line2); vertical-align: middle; font-size: .9375rem; }
+  tr.row { cursor: pointer; }
+  tr.row:hover td { background: var(--line2); }
+  tr.row td:first-child { border-left: 4px solid transparent; }
+  tr.row.lean-d td:first-child { border-left-color: var(--dem); }
+  tr.row.lean-r td:first-child { border-left-color: var(--rep); }
+  .rname { font-weight: 700; white-space: nowrap; }
+  .rname small { font-weight: 500; color: var(--muted); }
+  .who { font-size: .875rem; color: var(--muted); white-space: nowrap; max-width: 280px; overflow: hidden; text-overflow: ellipsis; }
+  .chip { display: inline-block; min-width: 54px; text-align: center; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: .875rem; white-space: nowrap; }
+  .chip.D { background: var(--dem-bg); color: var(--dem); }
+  .chip.R { background: var(--rep-bg); color: var(--rep); }
+  .chip.T { background: var(--tie-bg); color: var(--muted); }
+  .chip.old { opacity: .5; }
+  .chip.solid.D { background: var(--dem); color: #fff; } .chip.solid.R { background: var(--rep); color: #fff; }
+  .num { font-weight: 600; }
+  .ref { white-space: nowrap; font-size: .875rem; }
+  .alert { display: inline-block; padding: 4px 9px; border-radius: 6px; font-size: .875rem; font-weight: 700; white-space: nowrap; border: 1px solid transparent; }
+  .alert.D { background: var(--dem-bg); color: var(--dem); border-color: var(--dem-soft); }
+  .alert.R { background: var(--rep-bg); color: var(--rep); border-color: var(--rep-soft); }
+  .alert.none { color: var(--muted); font-weight: 500; }
+  .status { font-size: .875rem; font-weight: 700; white-space: nowrap; }
+  .status.called { color: var(--fg); }
+  .status.open { color: var(--muted); font-weight: 500; }
+  .pin { font-size: .875rem; color: var(--muted); white-space: nowrap; }
+  tr.detail td { background: var(--line2); padding: 12px 16px 14px 20px; }
+  .detail-grid { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(260px, 1.4fr); gap: 18px; }
+  @media (max-width: 760px) { .detail-grid { grid-template-columns: 1fr; } }
+  .detail-grid h3 { margin: 0 0 6px; font-size: .875rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .cl { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 3px 14px; font-size: .9375rem; max-width: 440px; }
+  .cl .p { font-size: .8125rem; font-weight: 700; }
+  .cl .p.DEM { color: var(--dem); } .cl .p.REP { color: var(--rep); }
+  .hist { display: flex; flex-wrap: wrap; gap: 6px; }
+  .hist div { font-size: .875rem; text-align: center; }
+  .hist div b { display: block; font-weight: 600; color: var(--muted); margin-bottom: 2px; }
+  .empty { padding: 40px; text-align: center; color: var(--muted); }
+  footer { max-width: 1320px; margin: 0 auto; padding: 0 24px 40px; font-size: .875rem; color: var(--muted); }
+  footer p { margin: 0 0 8px; max-width: 900px; }
+  footer a { color: inherit; }
+  @media (max-width: 600px) {
+    .topbar .in, .wrap, footer { padding-left: 16px; padding-right: 16px; }
+    .controls select, .controls input { min-width: 0; width: 100%; }
+    .controls label { flex: 1 1 140px; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <h1>Oregon Results Desk · 2026 General</h1>
+  <label class="cpick">County
+    <select id="gCounty"><option value="">All of Oregon</option></select>
+  </label>
+  <button type="button" class="refresh" id="refresh" title="Fetch the newest results now">Refresh</button>
+  <nav class="views" id="views">
+    <button type="button" data-v="pinned">Pinned</button>
+    <button type="button" data-v="party" class="on">Partisan</button>
+    <button type="button" data-v="all">All races</button>
+    <button type="button" data-v="turnout">Turnout</button>
+    <button type="button" data-v="groups">Demographics</button>
+  </nav>
+  <div class="src" id="src">Loading…</div>
+</div></div>
+
+<div class="wrap view" id="vParty">
+  <div class="cards" id="cards"></div>
+
+  <div class="tabs" id="fOffice" role="tablist">
+    <button type="button" data-v="all" class="on">All races</button>
+    <button type="button" data-v="statewide">Governor &amp; Senate</button>
+    <button type="button" data-v="U.S. House">U.S. House</button>
+    <button type="button" data-v="State Senate">State Senate (SD)</button>
+    <button type="button" data-v="State House">State House (HD)</button>
+  </div>
+  <div class="controls">
+    <label>Compare 2026 against
+      <select id="fRef">
+        <option value="same">Same seat, last election</option>
+        <option value="2024">2024</option>
+        <option value="2022">2022</option>
+      </select>
+    </label>
+    <label>Sort
+      <select id="fSort">
+        <option value="ballot">Ballot order</option>
+        <option value="shiftD">Biggest shift toward D</option>
+        <option value="shiftR">Biggest shift toward R</option>
+        <option value="close">Closest 2026 margin</option>
+      </select>
+    </label>
+    <label>Alert threshold
+      <select id="fThr">
+        <option value="3">3 pts</option>
+        <option value="5" selected>5 pts</option>
+        <option value="10">10 pts</option>
+      </select>
+    </label>
+    <label>Data
+      <select id="fSrc">
+        <option value="ap">AP (calls, % expected in)</option>
+        <option value="sos">Secretary of State</option>
+      </select>
+    </label>
+    <label>Find
+      <input id="fFind" type="search" placeholder="District or candidate">
+    </label>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="checks" id="fChecks">
+    <span class="grp"><b>Show</b>
+      <label class="ck D"><input type="checkbox" data-g="result" value="Dhold"> D holds <span class="n"></span></label>
+      <label class="ck D"><input type="checkbox" data-g="result" value="Dflip"> D flips <span class="n"></span></label>
+      <label class="ck R"><input type="checkbox" data-g="result" value="Rhold"> R holds <span class="n"></span></label>
+      <label class="ck R"><input type="checkbox" data-g="result" value="Rflip"> R flips <span class="n"></span></label>
+    </span>
+    <span class="grp"><b>Only</b>
+      <label class="ck"><input type="checkbox" data-g="only" value="called"> Called <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" data-g="only" value="open"> Not called yet <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" data-g="only" value="close"> Within 5 pts <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" data-g="only" value="moved"> Moved past alert threshold <span class="n"></span></label>
+    </span>
+  </div>
+  <div class="keyline">
+    <span><i style="background:var(--dem)"></i>Democratic margin / shift</span>
+    <span><i style="background:var(--rep)"></i>Republican margin / shift</span>
+    <span>Margin = D% minus R% of all votes. Shift = 2026 margin minus the comparison margin.</span>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th>Race</th>
+        <th class="c">2026</th>
+        <th class="c" id="shiftHead">Shift</th>
+        <th>Movement</th>
+        <th class="c">2024</th>
+        <th class="c">2022</th>
+        <th>Status</th>
+        <th class="c">% in</th>
+      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="8" class="empty">Loading results…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="wrap view" id="vAll" hidden>
+  <div class="controls">
+    <label>Find
+      <input id="aFind" type="search" placeholder="Race, place or candidate">
+    </label>
+    <span class="count" id="aCount"></span>
+  </div>
+  <div class="checks" id="aTypes">
+    <span class="grp"><b>Show</b>
+      <label class="ck"><input type="checkbox" value="county"> County offices <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" value="city"> City <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" value="judicial"> Judges <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" value="district"> School, fire, water &amp; other districts <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" value="measure"> Measures <span class="n"></span></label>
+      <label class="ck"><input type="checkbox" value="partisan"> Partisan only <span class="n"></span></label>
+    </span>
+  </div>
+  <div id="aList"><div class="empty">Loading county results…</div></div>
+</div>
+
+<div class="wrap view" id="vCounty" hidden>
+  <div id="cHead"></div>
+  <div id="cBody"></div>
+</div>
+
+<div class="wrap view" id="vPinned" hidden>
+  <div id="pinBody"></div>
+</div>
+
+<div class="wrap view" id="vGroups" hidden>
+  <div class="gpick" id="gRace"></div>
+  <div class="tablewrap"><table class="tt gt"><thead id="gHead"></thead><tbody id="gBody"><tr><td class="empty">Loading…</td></tr></tbody></table></div>
+  <div class="tnote" id="gNote"></div>
+</div>
+
+<div class="wrap view" id="vTurnout" hidden>
+  <div class="cards" id="tCards"></div>
+  <div id="tParty"></div>
+  <div class="tablewrap">
+    <table class="turn">
+      <thead><tr><th>County</th><th>Turnout</th><th class="c">Ballots counted</th><th class="c">Registered voters</th><th class="c" title="Share of registered Democrats whose ballots have been received">Dems returned</th><th class="c">Reps returned</th><th class="c">Nonaffil. returned</th><th>Results updated</th></tr></thead>
+      <tbody id="tBody"><tr><td colspan="8" class="empty">Loading turnout…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <p id="srcAP">Current results come from the Associated Press election data behind news-outlet result embeds (race calls and AP's estimate of the expected vote counted) and from the Oregon Secretary of State's unofficial results. Oregon counts ballots postmarked by Election Day that arrive within seven days, so margins move for a week or more. Counties certify in about three weeks; the Secretary of State certifies in early December.</p>
+  <p>History (2008 to 2024) is from <a href="https://github.com/openelections/openelections-data-or">OpenElections</a>, transcribed from county and Secretary of State canvasses. Congressional and legislative districts were redrawn before 2022, so district margins before 2022 are a different map. Seat counts "now" are the parties that won each seat at its last election.</p>
+  <p id="credAP">Election results © The Associated Press where marked AP.</p>
+  <p id="srcShared" hidden>Current results are the Oregon Secretary of State's unofficial results and the counties' own reports. Oregon counts ballots postmarked by Election Day that arrive within seven days, so margins move for a week or more. Counties certify in about three weeks; the Secretary of State certifies in early December. This shared copy has no race calls; a ✓ marks unopposed candidates and leaders too far ahead to catch. It updates about every 20 minutes.</p>
+</footer>
+
+<script>
+(function () {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmt = n => (n == null ? '' : Number(n).toLocaleString('en-US'));
+  const OFFICES = ['Governor', 'U.S. Senate', 'U.S. House', 'State Senate', 'State House'];
+  const STATEWIDE = new Set(['Governor', 'U.S. Senate']);
+  const DISTRICTED = new Set(['U.S. House', 'State Senate', 'State House']);
+  // Last election for the same seat. U.S. Senate 2026 is the seat last up in 2020;
+  // state senators serve four-year terms, so 2026 seats were last up in 2022.
+  const SAME_SEAT = { 'Governor': 2022, 'U.S. Senate': 2020, 'U.S. House': 2024, 'State Senate': 2022, 'State House': 2024 };
+  const SHORT = { 'Governor': 'Governor', 'U.S. Senate': 'U.S. Senate', 'U.S. House': 'OR-', 'State Senate': 'SD ', 'State House': 'HD ' };
+  let live = null, H = null, open = new Set(), officeSel = 'all', CSEL = '', CCTX = '';
+  // Races where AP and the history both carry county totals, so a county's own vote can be shown.
+  const COUNTY_LEVEL = new Set(['Governor', 'U.S. Senate', 'U.S. House']);
+  const COUNTY_NAMES = ['Baker', 'Benton', 'Clackamas', 'Clatsop', 'Columbia', 'Coos', 'Crook', 'Curry', 'Deschutes', 'Douglas',
+    'Gilliam', 'Grant', 'Harney', 'Hood River', 'Jackson', 'Jefferson', 'Josephine', 'Klamath', 'Lake', 'Lane', 'Lincoln', 'Linn',
+    'Malheur', 'Marion', 'Morrow', 'Multnomah', 'Polk', 'Sherman', 'Tillamook', 'Umatilla', 'Union', 'Wallowa', 'Wasco',
+    'Washington', 'Wheeler', 'Yamhill'];
+  // One county's slice of a race that reports county totals.
+  function inCounty(cands, cty) {
+    const rows = cands.map(c => ({ ...c, votes: (c.counties || {})[cty] || 0 }));
+    const t = rows.reduce((a, c) => a + c.votes, 0);
+    rows.forEach(c => { c.pct = t ? 100 * c.votes / t : 0; });
+    return { rows: rows.sort((a, b) => b.votes - a.votes), total: t };
+  }
+
+  const party1 = p => (p || '').split('/')[0];
+  const label = r => STATEWIDE.has(r.office) ? r.office : SHORT[r.office] + r.district;
+
+  function drm(cands) {
+    const d = cands.find(c => party1(c.party) === 'DEM');
+    const r = cands.find(c => party1(c.party) === 'REP');
+    if (d && r) return { d, r, m: d.pct - r.pct };
+    if (d || r) return { d, r, unc: d ? 'D' : 'R' };
+    return { d, r };
+  }
+  function hist(year, office, district) {
+    const y = H && H.years[String(year)];
+    const rec = y && y[office] && y[office][STATEWIDE.has(office) ? 'statewide' : district];
+    if (!rec) return null;
+    if (CCTX && COUNTY_LEVEL.has(office)) {
+      const { rows, total } = inCounty(rec.candidates, CCTX);
+      if (!total) return null;
+      const w = rows[0];
+      return { ...rec, candidates: rows, total, winner: w.name, winner_party: w.party, ...drm(rows) };
+    }
+    return { ...rec, ...drm(rec.candidates) };
+  }
+  function chip(x, cls = '') {
+    if (!x) return '<span class="chip T">–</span>';
+    if (x.unc) return `<span class="chip ${x.unc} ${cls}" title="No ${x.unc === 'D' ? 'Republican' : 'Democrat'} on the ballot">${x.unc} unc.</span>`;
+    if (x.m == null) return '<span class="chip T">–</span>';
+    const r = Math.round(x.m);
+    const title = `${x.m >= 0 ? 'D' : 'R'}+${Math.abs(x.m).toFixed(1)}`;
+    if (r === 0) return `<span class="chip T ${cls}" title="${title}">Even</span>`;
+    return `<span class="chip ${r > 0 ? 'D' : 'R'} ${cls}" title="${title}">${r > 0 ? 'D' : 'R'}+${Math.abs(r)}</span>`;
+  }
+  function shiftChip(s) {
+    if (s == null) return '<span class="chip T">–</span>';
+    const r = Math.round(s);
+    if (r === 0) return '<span class="chip T">0</span>';
+    return `<span class="chip ${r > 0 ? 'D' : 'R'}" title="${s > 0 ? 'Toward D' : 'Toward R'} by ${Math.abs(s).toFixed(1)} pts">${r > 0 ? '+' : '−'}${Math.abs(r)}</span>`;
+  }
+
+  function source() {
+    const want = $('#fSrc').value;
+    const s = live && live.sources || {};
+    if (s[want] && s[want].races) return [want, s[want]];
+    const other = want === 'ap' ? 'sos' : 'ap';
+    return s[other] && s[other].races ? [other, s[other]] : [null, null];
+  }
+
+  function rows() {
+    const [using, src] = source();
+    if (!src) return [];
+    const refSel = $('#fRef').value;
+    // AP posts no count for some races (often uncontested ones). Fill those from the SoS.
+    const sos = {};
+    const s = live.sources.sos;
+    if (using === 'ap' && s && s.races) s.races.forEach(r => { sos[r.office + '|' + r.district] = r; });
+    return src.races.map(r => {
+      let cands = r.candidates, total = r.total, filled = false;
+      const alt = sos[r.office + '|' + r.district];
+      if (!total && alt && alt.total) { cands = alt.candidates; total = alt.total; filled = true; }
+      let countyView = false;
+      if (CCTX && COUNTY_LEVEL.has(r.office) && using === 'ap' && r.candidates.some(c => c.counties && Object.keys(c.counties).length)) {
+        const ic = inCounty(r.candidates, CCTX); cands = ic.rows; total = ic.total; countyView = true;
+      }
+      cands = [...cands].sort((a, b) => b.votes - a.votes);
+      const cur = total > 0 ? drm(cands) : { none: true };
+      const refYear = refSel === 'same' ? SAME_SEAT[r.office] : Number(refSel);
+      // Compare like with like: a county's own vote against its own past, otherwise the whole race.
+      const saved = CCTX; if (!countyView) CCTX = '';
+      const ref = hist(refYear, r.office, r.district);
+      CCTX = saved;
+      const shift = (cur.m != null && ref && ref.m != null) ? cur.m - ref.m : null;
+      const lead = cands[0] && total > 0 ? party1(cands[0].party) : '';
+      // A statewide call is not a county result, so county views show who leads there.
+      const called = using === 'ap' && !countyView && /^called/i.test(r.call_status || '');
+      const pctIn = using === 'ap' && !filled && !countyView ? r.pct_expected_in : null;
+      const apWinner = r.candidates.find(c => c.winner) || (called ? [...r.candidates].sort((a, b) => b.votes - a.votes)[0] : null);
+      return { r, cands, total, filled, countyView, cur, ref, refYear, shift, lead, called, pctIn, using,
+               winnerParty: called && apWinner ? party1(apWinner.party) : '' };
+    }).map(x => {
+      const saved = CCTX; if (!x.countyView) CCTX = '';
+      const prev = hist(SAME_SEAT[x.r.office], x.r.office, x.r.district);
+      CCTX = saved;
+      x.prevParty = prev ? prev.winner_party : '';
+      x.nowParty = x.called ? x.winnerParty : x.lead;
+      const pk = p => p === 'DEM' ? 'D' : p === 'REP' ? 'R' : '';
+      x.outcome = (x.nowParty && x.prevParty && pk(x.nowParty))
+        ? pk(x.nowParty) + (x.nowParty === x.prevParty ? 'hold' : 'flip') : '';
+      return x;
+    });
+  }
+
+  function seatCounts(rs, office) {
+    const c = { dc: 0, dl: 0, rc: 0, rl: 0, o: 0, none: 0 };
+    rs.filter(x => x.r.office === office).forEach(x => {
+      if (!x.total && !x.called) { c.none++; return; }
+      const p = x.called ? x.winnerParty : x.lead;
+      if (p === 'DEM') x.called ? c.dc++ : c.dl++;
+      else if (p === 'REP') x.called ? c.rc++ : c.rl++;
+      else c.o++;
+    });
+    return c;
+  }
+  function baseline(year, office, districts) {
+    const y = H && H.years[String(year)] && H.years[String(year)][office] || {};
+    const c = { D: 0, R: 0, O: 0 };
+    (districts || Object.keys(y)).forEach(d => {
+      const p = y[d] && y[d].winner_party;
+      if (!p) return;
+      p === 'DEM' ? c.D++ : p === 'REP' ? c.R++ : c.O++;
+    });
+    return c;
+  }
+  function popVote(rs, office) {
+    let d = 0, r = 0, t = 0;
+    rs.filter(x => x.r.office === office).forEach(x => x.cands.forEach(c => {
+      t += c.votes; if (party1(c.party) === 'DEM') d += c.votes; if (party1(c.party) === 'REP') r += c.votes;
+    }));
+    return t ? { d: 100 * d / t, r: 100 * r / t, t } : null;
+  }
+  function popVoteHist(year, office) {
+    const y = H && H.years[String(year)] && H.years[String(year)][office] || {};
+    let d = 0, r = 0, t = 0;
+    Object.values(y).forEach(rec => rec.candidates.forEach(c => {
+      t += c.votes; if (c.party === 'DEM') d += c.votes; if (c.party === 'REP') r += c.votes;
+    }));
+    return t ? { d: 100 * d / t, r: 100 * r / t } : null;
+  }
+
+  function seatCard(title, office, total, maj, holdover, base, rs) {
+    const c = seatCounts(rs, office);
+    const hd = holdover ? holdover.D : 0, hr = holdover ? holdover.R : 0, ho = holdover ? holdover.O : 0;
+    const D = c.dc + c.dl + hd, R = c.rc + c.rl + hr;
+    const w = n => (100 * n / total) + '%';
+    const pv = popVote(rs, office), pvOld = popVoteHist(2024, office);
+    const pvLine = pv ? `<div class="sub" style="margin-top:6px">Vote for ${esc(office)} candidates: <b style="color:var(--dem)">D ${pv.d.toFixed(1)}%</b> · <b style="color:var(--rep)">R ${pv.r.toFixed(1)}%</b>` +
+      (pvOld && office !== 'State Senate' ? ` <span title="Same office, 2024">(2024: D ${pvOld.d.toFixed(1)}%, R ${pvOld.r.toFixed(1)}%)</span>` : '') + '</div>' : '';
+    return `<div class="card">
+      <h2>${esc(title)}</h2>
+      <div class="big"><span style="color:var(--dem)">D ${D}</span> <span style="color:var(--muted);font-weight:500">·</span> <span style="color:var(--rep)">R ${R}</span></div>
+      <div class="sub">${total} seats, ${maj} for a majority. Now: D ${base.D}, R ${base.R}${base.O ? ', other ' + base.O : ''}.${c.none ? ` ${c.none} with no returns.` : ''}${c.o ? ` ${c.o} led by a third party.` : ''}</div>
+      <div class="seatbar">
+        ${holdover ? `<span class="dc ho" style="width:${w(hd)}" title="${hd} D seats not up in 2026"></span>` : ''}
+        <span class="dc" style="width:${w(c.dc)}" title="${c.dc} D called"></span>
+        <span class="dl" style="width:${w(c.dl)}" title="${c.dl} D leading"></span>
+        <span style="flex:1"></span>
+        <span class="rl" style="width:${w(c.rl)}" title="${c.rl} R leading"></span>
+        <span class="rc" style="width:${w(c.rc)}" title="${c.rc} R called"></span>
+        ${holdover ? `<span class="rc ho" style="width:${w(hr)}" title="${hr} R seats not up in 2026"></span>` : ''}
+        <span class="maj" style="left:calc(${w(maj)} - 1px)" title="Majority: ${maj}"></span>
+      </div>
+      <div class="seatnums"><span class="d">${c.dc} called · ${c.dl} leading${holdover ? ` · ${hd} not up` : ''}</span><span class="r">${holdover ? `${hr} not up · ` : ''}${c.rl} leading · ${c.rc} called</span></div>
+      ${pvLine}
+    </div>`;
+  }
+
+  function raceCard(x) {
+    if (!x) return '';
+    const top = x.cands.filter(c => c.name !== 'Write-in').slice(0, 3);
+    return `<div class="card">
+      <h2>${esc(x.r.office)}</h2>
+      <div class="big">${chip(x.cur, 'solid')} <span style="font-size:1rem;font-weight:600;color:var(--muted)">shift vs ${x.refYear}: </span>${shiftChip(x.shift)}</div>
+      <div class="race-mini">${top.map(c => `<span class="nm">${esc(c.name)} <small>${esc(party1(c.party))}</small></span><span><b>${c.pct.toFixed(1)}%</b> <small style="color:var(--muted)">${fmt(c.votes)}</small></span>`).join('')}</div>
+      <div class="sub" style="margin-top:8px">${x.pctIn != null ? `${Math.round(x.pctIn)}% of expected vote in · ` : ''}${x.called ? `<b>Called</b>` : esc(x.r.call_status || 'Counting')}</div>
+    </div>`;
+  }
+
+  function renderCards(rs) {
+    const gov = rs.find(x => x.r.office === 'Governor');
+    const sen = rs.find(x => x.r.office === 'U.S. Senate');
+    const senUp = rs.filter(x => x.r.office === 'State Senate').map(x => x.r.district);
+    const sen24 = H ? Object.keys(H.years['2024']['State Senate']) : [];
+    const holdover = baseline(2024, 'State Senate', sen24.filter(d => !senUp.includes(d)));
+    const senBase = (() => { const a = baseline(2022, 'State Senate', senUp); return { D: a.D + holdover.D, R: a.R + holdover.R, O: a.O + holdover.O }; })();
+    $('#cards').innerHTML =
+      raceCard(gov) + raceCard(sen) +
+      seatCard('Oregon House', 'State House', 60, 31, null, baseline(2024, 'State House'), rs) +
+      seatCard('Oregon Senate', 'State Senate', 30, 16, holdover, senBase, rs) +
+      seatCard('U.S. House delegation', 'U.S. House', 6, 4, null, baseline(2024, 'U.S. House'), rs);
+  }
+
+  // Counties a district covers, by votes cast there at its latest election on the current map.
+  function countyShare(x) {
+    if (STATEWIDE.has(x.r.office)) return null;
+    const rec = [2024, 2022].map(y => hist(y, x.r.office, x.r.district)).find(Boolean);
+    if (!rec) return null;
+    const v = {};
+    rec.candidates.forEach(c => Object.entries(c.counties || {}).forEach(([k, n]) => { v[k] = (v[k] || 0) + n; }));
+    return v;
+  }
+  function where(x) {
+    if (STATEWIDE.has(x.r.office)) return '';
+    const v = countyShare(x);
+    if (!v) return '';
+    const tot = Object.values(v).reduce((a, b) => a + b, 0);
+    const list = Object.keys(v).sort((a, b) => v[b] - v[a]);
+    if (!list.length) return '';
+    const txt = list.length === 1 ? `${list[0]} County` : `${list.slice(0, 3).join(', ')}${list.length > 3 ? ` +${list.length - 3} more` : ''} counties`;
+    const full = list.map(k => `${k} ${Math.round(100 * v[k] / tot)}%`).join(', ');
+    return `<div class="where" title="Share of the district's votes by county: ${esc(full)}">${esc(txt)}</div>`;
+  }
+
+  function renderTable(rs) {
+    const office = officeSel, sort = $('#fSort').value, thr = Number($('#fThr').value);
+    const q = $('#fFind').value.trim().toLowerCase();
+    let list = rs.filter(x => office === 'all' || (office === 'statewide' ? STATEWIDE.has(x.r.office) : x.r.office === office));
+    const thrPass = x => x.shift != null && Math.abs(x.shift) >= thr;
+    const TESTS = {
+      Dhold: x => x.outcome === 'Dhold', Dflip: x => x.outcome === 'Dflip',
+      Rhold: x => x.outcome === 'Rhold', Rflip: x => x.outcome === 'Rflip',
+      called: x => x.called, open: x => !x.called && !x.cur.none,
+      close: x => x.cur.m != null && Math.abs(x.cur.m) < 5, moved: thrPass,
+    };
+    // counts for the boxes, within the current office tab
+    document.querySelectorAll('#fChecks input').forEach(cb => {
+      const n = list.filter(TESTS[cb.value]).length;
+      cb.parentElement.querySelector('.n').textContent = n;
+    });
+    const picked = g => [...document.querySelectorAll(`#fChecks input[data-g="${g}"]:checked`)].map(cb => TESTS[cb.value]);
+    const anyOf = picked('result'), allOf = picked('only');
+    if (anyOf.length) list = list.filter(x => anyOf.some(t => t(x)));
+    if (allOf.length) list = list.filter(x => allOf.every(t => t(x)));
+    if (q) list = list.filter(x => (label(x.r) + ' ' + x.r.district + ' ' + x.cands.map(c => c.name).join(' ')).toLowerCase().includes(q));
+    const ord = x => OFFICES.indexOf(x.r.office) * 1000 + (parseInt(x.r.district) || 0);
+    const by = {
+      ballot: (a, b) => ord(a) - ord(b),
+      shiftD: (a, b) => (b.shift ?? -1e9) - (a.shift ?? -1e9),
+      shiftR: (a, b) => (a.shift ?? 1e9) - (b.shift ?? 1e9),
+      close: (a, b) => Math.abs(a.cur.m ?? 1e9) - Math.abs(b.cur.m ?? 1e9),
+    };
+    list.sort(by[sort]);
+    $("#count").textContent = `${list.length} race${list.length === 1 ? "" : "s"}`;
+    if (!list.length) { $('#tbody').innerHTML = '<tr><td colspan="8" class="empty">No races match.</td></tr>'; return; }
+    $('#tbody').innerHTML = list.map(x => {
+      const id = x.r.office + '|' + x.r.district;
+      const last = n => n.split(' ').slice(-1)[0];
+      const names = [x.cur.d, x.cur.r].filter(Boolean).map(c => `${last(c.name)} (${party1(c.party)[0]}) ${c.pct.toFixed(1)}%`).join(' · ') ||
+        x.cands.slice(0, 2).map(c => c.name).join(' · ');
+      const yCell = y => { const h = hist(y, x.r.office, x.r.district); return `<td class="c">${h ? chip(h) : '<span class="chip T" title="Not up that year">–</span>'}</td>`; };
+      let alert = '<span class="alert none">–</span>';
+      if (x.shift != null) {
+        alert = Math.abs(x.shift) >= thr
+          ? `<span class="alert ${x.shift > 0 ? 'D' : 'R'}">${x.shift > 0 ? 'D' : 'R'} gain ${Math.round(Math.abs(x.shift))} pts</span>`
+          : '<span class="alert none">Holding steady</span>';
+      }
+      const flip = x.outcome.endsWith('flip');
+      const status = x.cur.none ? '<span class="status open">No returns</span>'
+        : x.called ? `<span class="status called">Called ${x.winnerParty === 'DEM' ? 'D' : x.winnerParty === 'REP' ? 'R' : esc(x.winnerParty)}</span>`
+        : `<span class="status open">${x.lead === 'DEM' ? 'D' : x.lead === 'REP' ? 'R' : esc(x.lead)} leading</span>`;
+      const lean = x.lead === 'DEM' ? 'lean-d' : x.lead === 'REP' ? 'lean-r' : '';
+      let html = `<tr class="row ${lean}" data-id="${esc(id)}">
+        <td><div class="rname">${pinBtn('p|' + id)}${esc(label(x.r))}${flip ? ` <small style="color:var(--warn)">· ${x.outcome[0]} flip</small>` : ''}</div>${where(x)}<div class="who">${esc(names)}</div></td>
+        <td class="c">${x.cur.none ? '<span class="chip T">–</span>' : chip(x.cur)}</td>
+        <td class="c">${shiftChip(x.shift)}<div class="pin" style="margin-top:2px">vs ${x.refYear}</div></td>
+        <td>${alert}</td>
+        ${yCell(2024)}${yCell(2022)}
+        <td>${status}</td>
+        <td class="c pin">${x.pctIn != null ? Math.round(x.pctIn) + '%' : '–'}</td>
+      </tr>`;
+      if (open.has(id)) html += detailRow(x);
+      return html;
+    }).join('');
+  }
+
+  function detailRow(x) {
+    const all = [2024, 2022, 2020, 2018, 2016, 2014, 2012, 2010, 2008].map(y => [y, hist(y, x.r.office, x.r.district)]).filter(([, h]) => h);
+    return `<tr class="detail"><td colspan="8"><div class="detail-grid">
+      <div><h3>2026 candidates</h3><div class="cl">${x.cands.map(c =>
+        `<span>${esc(c.name)}${c.winner ? ' ✓' : ''}</span><span class="p ${party1(c.party)}">${esc(c.party || '')}</span><span>${c.pct.toFixed(1)}% · ${fmt(c.votes)}</span>`).join('')}</div>
+        <div class="sub" style="margin-top:6px">${fmt(x.total)} votes counted${x.filled ? " (Secretary of State count; AP has none yet)" : x.r.expected_total ? ` of about ${fmt(x.r.expected_total)} expected (AP)` : ''}.</div></div>
+      <div><h3>Prior elections</h3><div class="hist">${all.length ? all.map(([y, h]) =>
+        `<div><b>${y}</b>${chip(h, DISTRICTED.has(x.r.office) && y < 2022 ? 'old' : '')}<div style="margin-top:3px;color:var(--muted)">${esc((h.winner || '').split(' ').slice(-1)[0])}</div></div>`).join('') : '<span class="sub">No earlier general election for this seat.</span>'}</div>
+        ${DISTRICTED.has(x.r.office) ? '<div class="sub" style="margin-top:6px">Faded years were on the pre-2022 district map.</div>' : ''}</div>
+    </div></td></tr>`;
+  }
+
+  // ---------- Race details that open in place ----------
+  let openK = new Set();
+  // Pinned races, kept in this browser so they stay until unpinned.
+  let pins = [];
+  try { pins = JSON.parse(localStorage.getItem('pins') || '[]'); } catch (e) {}
+  const pinned = k => pins.includes(k);
+  const pinBtn = k => `<button type="button" class="pinb${pinned(k) ? ' on' : ''}" data-pin="${esc(k)}" title="${pinned(k) ? 'Unpin' : 'Pin to the Pinned tab'}">${pinned(k) ? '★' : '☆'}</button>`;
+  function togglePin(k) {
+    pins = pinned(k) ? pins.filter(x => x !== k) : [...pins, k];
+    try { localStorage.setItem('pins', JSON.stringify(pins)); } catch (e) {}
+    pinCount();
+  }
+  function pinCount() { const b = document.querySelector('#views [data-v="pinned"]'); if (b) b.textContent = pins.length ? `Pinned · ${pins.length}` : 'Pinned'; }
+  const caret = k => `<span class="caret">${openK.has(k) ? '▾' : '▸'}</span>`;
+  function candList(cands, won) {
+    return `<div class="cl">${cands.map(c => `<span>${won.has(c.name) ? '<span class="won">✓</span>' : ''}${esc(c.name)}</span><span class="p ${party1(c.party)}">${esc(c.party || '')}</span><span>${(c.pct || 0).toFixed(1)}% · ${fmt(c.votes)}</span>`).join('')}</div>`;
+  }
+  // rows: [{county, total, lead, pct}]
+  function splitHTML(rows, here) {
+    return `<div class="split"><span class="h">County</span><span class="h">Leading</span><span class="h r">Votes</span>
+      ${rows.map(x => `<span class="${x.county === here ? 'here' : ''}"><a href="#county/${encodeURIComponent(x.county)}">${esc(x.county)}</a></span><span>${esc(x.lead)} ${x.pct != null ? x.pct.toFixed(1) + '%' : ''}</span><span class="r">${fmt(x.total)}</span>`).join('')}</div>`;
+  }
+  // A partisan race: candidates, the statewide or district total when the row shows one county, and history.
+  function partyDetail(x, ctx) {
+    const won = new Set(/^called/i.test(x.r.call_status || '') && x.r.winner ? [x.r.winner] : x.cands.filter(c => c.winner).map(c => c.name));
+    const prev = CCTX; CCTX = x.countyView ? ctx : '';
+    const all = [2024, 2022, 2020, 2018, 2016, 2014, 2012, 2010, 2008].map(y => [y, hist(y, x.r.office, x.r.district)]).filter(([, h]) => h);
+    CCTX = prev;
+    const rc = x.r.candidates || [];
+    const tot = rc.reduce((a, c) => a + (c.votes || 0), 0);
+    const whole = x.countyView && tot ? `<div class="sub" style="margin-top:6px">${STATEWIDE.has(x.r.office) ? 'Statewide' : 'Whole district'}: ${[...rc].sort((a, b) => b.votes - a.votes).slice(0, 3).map(c => `${won.has(c.name) ? '<span class="won">✓</span>' : ''}${esc(c.name)} ${(100 * c.votes / tot).toFixed(1)}%`).join(' · ')} of ${fmt(tot)} votes</div>` : '';
+    return `<div class="detail-grid">
+      <div><h3>${x.countyView ? esc(ctx) + ' County vote' : '2026 candidates'}</h3>${candList(x.cands, won)}
+        <div class="sub" style="margin-top:6px">${fmt(x.total)} votes counted${x.r.expected_total && !x.countyView ? ` of about ${fmt(x.r.expected_total)} expected (AP)` : ''}.</div>${whole}</div>
+      <div><h3>Prior elections${x.countyView ? ' in ' + esc(ctx) + ' County' : ''}</h3><div class="hist">${all.length ? all.map(([y, h]) =>
+        `<div><b>${y}</b>${chip(h, DISTRICTED.has(x.r.office) && y < 2022 ? 'old' : '')}<div style="margin-top:3px;color:var(--muted)">${esc((h.winner || '').split(' ').slice(-1)[0])}</div></div>`).join('') : '<span class="sub">No earlier general election for this seat.</span>'}</div>
+        ${DISTRICTED.has(x.r.office) ? '<div class="sub" style="margin-top:6px">Faded years were on the pre-2022 district map.</div>' : ''}</div></div>`;
+  }
+  // A local race: every candidate, and county by county when it crosses county lines.
+  function localDetail(c, county) {
+    const st = standing({ ...c, _county: county }), sp = spanInfo(c);
+    const dec = sp ? sp.st : st;
+    const won = new Set(dec && dec.decided && c.kind !== 'measure' ? dec.lead.filter(n => n !== 'Write-in') : []);
+    const cands = [...realCands(c)].filter(x => !(x.name === 'Write-in' && x.votes === 0)).sort((a, b) => b.votes - a.votes);
+    let html = `<div class="detail-grid"><div><h3>${sp ? esc(county) + ' County vote' : 'Candidates'}</h3>${candList(cands, sp ? new Set() : won)}
+      <div class="sub" style="margin-top:6px">${fmt(c.total)} votes counted${c.vote_for > 1 ? ` · vote for ${c.vote_for}` : ''}.${dec && dec.unopp ? ' Unopposed.' : dec && dec.reach ? ' Ahead by more votes than there are ballots left to count (estimated).' : ''}</div></div>`;
+    if (sp) {
+      const rows = sp.parts.map(([n, m]) => { const t = [...realCands(m)].sort((a, b) => b.votes - a.votes)[0]; return { county: n, total: m.total, lead: t ? t.name : '', pct: t ? t.pct : null }; });
+      html += `<div><h3>${sp.parts.length === 2 ? 'Both counties' : `All ${sp.parts.length} counties`}</h3>${candList(sp.cands.filter(x => !(x.name === 'Write-in' && x.votes === 0)), won)}
+        <div class="sub" style="margin:6px 0 12px">${fmt(sp.total)} votes counted.</div>${splitHTML(rows, county)}</div>`;
+    } else html += '<div></div>';
+    return html + '</div>';
+  }
+
+  // The shared copy (no AP source, not on this Mac) hides what only works locally or with AP.
+  function sharedMode() {
+    const local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    $('#refresh').hidden = !local;
+    const hasAP = !!(live && live.sources && live.sources.ap);
+    const opt = document.querySelector('#fSrc option[value="ap"]');
+    if (opt) opt.hidden = !hasAP;
+    if (!hasAP) $('#fSrc').value = 'sos';
+    if (live) { $('#srcAP').hidden = !hasAP; $('#credAP').hidden = !hasAP; $('#srcShared').hidden = hasAP; }
+  }
+
+  function renderSrc() {
+    const s = live && live.sources || {};
+    const when = v => {
+      if (!v) return '';
+      const d = new Date(v);
+      return isNaN(d) ? esc(v) : d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles' }) + ' PT';
+    };
+    const one = (k, name) => s[k] && s[k].ok
+      ? `<span><b>${name}</b> ${when(s[k].data_updated)}${s[k].stale ? ' <span class="stale">(stale)</span>' : ''}</span>`
+      : `<span><b>${name}</b> <span class="stale">unavailable</span></span>`;
+    $('#src').innerHTML = (s.ap ? one('ap', 'AP') : '') + one('sos', 'Secretary of State');
+  }
+
+  // ---------- All races by county ----------
+  let CTY = null;
+  const CAT_LABEL = { county: 'County office', city: 'City', judicial: 'Judge', district: 'District', measure: 'Measure' };
+  function cat(c) {
+    if (c.kind === 'measure') return 'measure';
+    if (/^City of/i.test(c.name)) return 'city';
+    if (/Judge|Justice of the Peace|Court/i.test(c.name)) return 'judicial';
+    if (/County (Commission|Commissioner|Sheriff|Clerk|Treasurer|Assessor|Surveyor|District Attorney)|^Commissioner|Commission, Chair/i.test(c.name) &&
+        !/Soil|Water|Park|Port|Fire|School|Library|PUD|Utility/i.test(c.name)) return 'county';
+    return 'district';
+  }
+  const cleanName = n => n.replace(/\s*-\s*view results at.*$/i, '');
+  function contestCard(c, countyName, where) {
+    const k = 'c|' + (where || 'SW') + '|' + c.id;
+    const rcv = /view results at/i.test(c.name);
+    const mcr = c.multi_county && CTY.other && CTY.other.MCR ? CTY.other.MCR.contests.find(x => x.id === c.id) : null;
+    const shown = c.candidates.filter(x => !(x.name === 'Write-in' && x.votes === 0) && x.name !== 'No Candidate Filed');
+    const top = shown.slice(0, Math.max(4, c.vote_for));
+    const cls = x => c.kind === 'measure' ? x.name.toUpperCase() : (party1(x.party) === 'DEM' || party1(x.party) === 'REP') ? party1(x.party) : 'NP';
+    const rows = top.map((x, i) => `<div class="c-row${i < c.vote_for && c.total ? ' lead' : ''}"><span class="nm">${esc(x.name)}${x.party ? `<span class="ptag ${['DEM', 'REP'].includes(party1(x.party)) ? party1(x.party) : 'oth'}">${esc(x.party)}</span>` : ''}</span><span class="v"><b>${c.total ? x.pct.toFixed(1) + '%' : ''}</b> ${fmt(x.votes)}</span></div>
+      <div class="track"><span class="${cls(x)}" style="width:${c.total ? x.pct : 0}%"></span></div>`).join('');
+    const foot = rcv ? 'Ranked-choice race. Counts are posted at <a href="https://rcvresults.multco.us" target="_blank" rel="noopener">rcvresults.multco.us</a>.'
+      : `${fmt(c.total)} votes${c.vote_for > 1 ? ` · vote for ${c.vote_for}` : ''}${countyName ? ` · ${esc(countyName)}` : ''}`;
+    const mcrLine = mcr && mcr.total ? `<div class="foot">All counties: ${esc(mcr.candidates[0].name)} ${mcr.candidates[0].pct.toFixed(1)}% of ${fmt(mcr.total)} votes</div>` : '';
+    return `<div class="contest${openK.has(k) ? ' open' : ''}" data-k="${esc(k)}">${pinBtn(k)}<div class="cat">${CAT_LABEL[cat(c)]}${c.multi_county ? ' · spans counties' : ''}</div><h3>${esc(cleanName(c.name))}</h3>${rows}
+      ${shown.length > top.length ? `<div class="more">+${shown.length - top.length} more</div>` : ''}<div class="foot">${foot}</div>${mcrLine}${openK.has(k) ? `<div class="cdet">${localDetail(c, where || '')}</div>` : ''}</div>`;
+  }
+  function renderAll() {
+    if (!CTY) { $('#aList').innerHTML = '<div class="empty">No county results file yet. It is written by the same GitHub Action as the other results.</div>'; return; }
+    const county = '', q = $('#aFind').value.trim().toLowerCase();
+    const types = [...document.querySelectorAll('#aTypes input:checked')].map(x => x.value);
+    const kinds = types.filter(t => t !== 'partisan'), partisanOnly = types.includes('partisan');
+    const pass = c => (!kinds.length || kinds.includes(cat(c))) && (!partisanOnly || c.partisan);
+    const sw = CTY.other && CTY.other.SWNON ? CTY.other.SWNON.contests : [];
+    const groups = (county ? [county] : ['__SW__', ...Object.keys(CTY.counties)]).map(n => {
+      let list = n === '__SW__' ? sw : CTY.counties[n].contests;
+      if (q) list = list.filter(c => ((n === '__SW__' ? 'statewide' : n) + ' ' + c.name + ' ' + c.candidates.map(x => x.name).join(' ')).toLowerCase().includes(q));
+      return [n, list];
+    });
+    document.querySelectorAll('#aTypes input').forEach(cb => {
+      const t = cb.value;
+      const n = groups.reduce((a, [, l]) => a + l.filter(c => t === 'partisan' ? c.partisan : cat(c) === t).length, 0);
+      cb.parentElement.querySelector('.n').textContent = n;
+    });
+    let total = 0;
+    const html = groups.map(([n, list]) => {
+      const shown = list.filter(pass); total += shown.length;
+      if (!shown.length) return '';
+      if (n === '__SW__') return `<section class="ctygroup"><h2>Statewide nonpartisan <small>${shown.length} race${shown.length === 1 ? '' : 's'} · totals across all counties</small></h2>
+        <div class="cgrid">${shown.map(c => contestCard(c)).join('')}</div></section>`;
+      const t = CTY.counties[n].turnout || {};
+      return `<section class="ctygroup"><h2>${esc(n)} County <small>${shown.length} race${shown.length === 1 ? '' : 's'}${t.pct != null ? ` · turnout ${t.pct.toFixed(1)}%` : ''}${CTY.counties[n].stale ? ' · <span style="color:var(--warn)">stale</span>' : ''}</small></h2>
+        <div class="cgrid">${shown.map(c => contestCard(c, '', n)).join('')}</div></section>`;
+    }).join('');
+    $('#aCount').textContent = `${total} race${total === 1 ? '' : 's'}`;
+    $('#aList').innerHTML = html || '<div class="empty">No races match.</div>';
+  }
+
+  // ---------- Turnout ----------
+  function renderTurnout() {
+    if (!CTY) return;
+    const t = CTY.turnout || {};
+    $('#tCards').innerHTML = `
+      <div class="card"><h2>Statewide turnout so far</h2><div class="big">${t.pct != null ? t.pct.toFixed(1) + '%' : '–'}</div><div class="sub">of active registered voters</div></div>
+      <div class="card"><h2>Ballots counted</h2><div class="big">${fmt(t.ballots)}</div><div class="sub">Oregon counts ballots that arrive up to seven days after Election Day if postmarked by it.</div></div>
+      <div class="card"><h2>Registered voters</h2><div class="big">${fmt(t.registered)}</div><div class="sub">Active registration, all 36 counties</div></div>`;
+    $('#tParty').innerHTML = partyHTML(null).replace('<div class="csec">', '<div class="csec" style="margin-top:0">') + '<div class="csec">By county</div>';
+    const rows = Object.entries(CTY.counties).sort((a, b) => (b[1].turnout.pct ?? 0) - (a[1].turnout.pct ?? 0));
+    $('#tBody').innerHTML = rows.map(([n, c]) => `<tr>
+      <td><button class="linkish" data-county="${esc(n)}">${esc(n)}</button></td>
+      <td><div class="tbar"><div class="track"><span style="width:${c.turnout.pct ?? 0}%"></span></div><b>${c.turnout.pct != null ? c.turnout.pct.toFixed(1) + '%' : '–'}</b></div></td>
+      <td class="c num">${fmt(c.turnout.ballots)}</td><td class="c num">${fmt(c.turnout.registered)}</td>${(() => { const p = partyOf(n); return ['dem', 'rep', 'nav'].map(k => `<td class="c num">${pc(prate(p, k))}</td>`).join(''); })()}
+      <td class="pin">${esc(c.updated || '')}</td></tr>`).join('');
+  }
+
+  // ---------- One county: turnout history, cities, precincts ----------
+  let TH = null, precOpen = false, precCity = '', cTab = 'races';
+  let pastOpen = false;
+  try { pastOpen = localStorage.getItem('pastOpen') === '1'; } catch (e) {}
+  const rate = o => o && o.registered ? 100 * o.ballots / o.registered : null;
+  const pc = v => v == null ? '<span class="dim">–</span>' : v.toFixed(1) + '%';
+  const kind = y => +y % 4 === 0 ? 'Presidential' : 'Midterm';
+  // Ballots still to come if this place ends at its 2022 turnout rate (same kind of election).
+  const leftIf = (now, past) => now && rate(past) != null ? Math.max(0, Math.round(now.registered * rate(past) / 100) - now.ballots) : null;
+  const left = v => v == null ? '<span class="dim">–</span>' : fmt(v);
+
+  function turnoutHTML(cty) {
+    const hc = (TH && TH.counties[CSEL]) || {};
+    const sw = (TH && TH.statewide) || {};
+    const now = cty && cty.turnout;
+    const rep = cty && cty.canvass;
+    const pNow = partyOf(CSEL);
+    const PK = [['dem', 'Dems'], ['rep', 'Reps'], ['nav', 'Nonaffil.']];
+    let html = '<div class="csec">Turnout</div><div class="tgrid">';
+
+    // year by year: the county, the state, and the county's turnout by party
+    const hy = Object.keys(hc.county || {});
+    const years = (hy.length ? hy : Object.keys(sw).filter(y => y >= '2014')).sort().reverse();
+    const pcell = (row, k) => `<td class="r">${pc(row && row[k] ? rate(row[k]) : null)}</td>`;
+    html += `<div class="tablewrap"><table class="tt"><thead><tr><th>Year</th><th class="r">Ballots</th><th class="r">Registered</th><th class="r">${esc(CSEL)}</th><th class="r">Oregon</th>${PK.map(([, l]) => `<th class="r" title="Turnout among voters registered with this party">${l}</th>`).join('')}</tr></thead><tbody>
+      <tr class="now"><td>2026 so far</td><td class="r">${fmt(now && now.ballots)}</td><td class="r">${fmt(now && now.registered)}</td><td class="r">${pc(rate(now))}</td><td class="r">${pc(rate(CTY && CTY.turnout))}</td>${PK.map(([k]) => `<td class="r">${pc(prate(pNow, k))}</td>`).join('')}</tr>
+      ${years.length ? `<tr class="tog"><td colspan="8"><button id="pastTog" aria-expanded="${pastOpen}">${pastOpen ? '▾ Hide' : '▸ Show'} past years, ${years[years.length - 1]} to ${years[0]}</button></td></tr>` : ''}
+      ${years.map(y => { const c = (hc.county || {})[y], pr = (hc.party || {})[y]; return `<tr${pastOpen ? '' : ' hidden'}><td>${y} <span class="dim">${kind(y)}</span></td><td class="r">${fmt(c && c.ballots)}</td><td class="r">${fmt(c && c.registered)}</td><td class="r">${pc(rate(c))}</td><td class="r">${pc(rate(sw[y]))}</td>${PK.map(([k]) => pcell(pr, k)).join('')}</tr>`; }).join('')}
+    </tbody></table></div>`;
+
+    // by age, past elections (the state reports it from 2018; not yet for 2026)
+    const ay = Object.keys(hc.age || {}).sort().reverse();
+    if (ay.length) {
+      const sa = (TH.statewide_age || {})[ay[0]] || {};
+      html += `<div class="tablewrap"><table class="tt"><thead><tr><th>Age</th>${ay.map(y => `<th class="r">${y}</th>`).join('')}<th class="r">Oregon ${ay[0]}</th></tr></thead><tbody>
+        ${['18-34', '35-49', '50-64', '65+'].map(a => `<tr><td>${a.replace('-', ' to ').replace('65+', '65 and older')}</td>${ay.map(y => `<td class="r">${pc(rate(hc.age[y][a]))}</td>`).join('')}<td class="r">${pc(rate(sa[a]))}</td></tr>`).join('')}
+      </tbody></table></div>`;
+    }
+
+    // cities: past turnout where the county's canvass reports go back, and this year's count where it posts one
+    const ch = hc.cities || {}, cn = (rep && rep.cities) || {};
+    // A city with only a sliver inside this county (Lake Oswego's 2 voters in Washington) isn't worth a row.
+    const cityNames = [...new Set([...Object.keys(ch), ...Object.keys(cn)])].filter(n => Math.max((cn[n] || {}).registered || 0, ...Object.values(ch[n] || {}).map(v => v.registered || 0)) >= 50);
+    const cy = [...new Set(Object.values(ch).flatMap(h => Object.keys(h)))].sort().reverse();
+    const has22 = cy.includes('2022');
+    if (cityNames.length) {
+      const size = n => ((cn[n] || {}).registered || ((ch[n] || {})[cy[0]] || {}).registered || 0);
+      cityNames.sort((a, b) => size(b) - size(a));
+      html += `<div class="tablewrap"><table class="tt"><thead><tr><th>City</th>${cy.map(y => `<th class="r">${y}</th>`).join('')}<th class="r">2026 so far</th>${cy.length ? '' : '<th class="r">Ballots</th><th class="r">Registered</th>'}${has22 ? '<th class="r" title="More ballots needed for the city to reach its 2022 turnout">To match 2022</th>' : ''}</tr></thead><tbody>
+        ${cityNames.map(n => { const h = ch[n] || {}, c = cn[n]; return `<tr><td>${esc(n)}</td>${cy.map(y => `<td class="r">${pc(rate(h[y]))}</td>`).join('')}<td class="r"><b>${pc(rate(c))}</b></td>${cy.length ? '' : `<td class="r">${fmt(c && c.ballots)}</td><td class="r">${fmt(c && c.registered)}</td>`}${has22 ? `<td class="r">${left(leftIf(c, h['2022']))}</td>` : ''}</tr>`; }).join('')}
+      </tbody></table></div>`;
+    }
+    html += '</div>';
+
+    // precincts
+    const ph = hc.precincts || {}, pn = (rep && rep.precincts) || {};
+    const ids = [...new Set([...Object.keys(ph), ...Object.keys(pn)])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    if (ids.length) {
+      const pcity = { ...(hc.precinct_city || {}) };
+      Object.entries(cn).forEach(([n, c]) => (c.precincts || []).forEach(id => { pcity[id] = n; }));
+      const py = [...new Set(Object.values(ph).flatMap(h => Object.keys(h)))].sort().reverse();
+      const p22 = py.includes('2022');
+      const pNames = [...new Set(Object.values(pcity))].sort();
+      const shown = ids.filter(id => !precCity || (precCity === '-' ? !pcity[id] : pcity[id] === precCity));
+      const tot = { b: 0, r: 0, l: 0 };
+      const rowsH = shown.map(id => {
+        const h = ph[id] || {}, c = pn[id], l = p22 ? leftIf(c, h['2022']) : null;
+        if (c) { tot.b += c.ballots; tot.r += c.registered; } if (l) tot.l += l;
+        return `<tr><td>${esc(id)}</td><td>${esc(pcity[id] || '')}</td>${py.map(y => `<td class="r">${pc(rate(h[y]))}</td>`).join('')}
+          <td class="r"><b>${pc(rate(c))}</b></td><td class="r">${fmt(c && c.ballots)}</td><td class="r">${fmt(c && c.registered)}</td>${p22 ? `<td class="r">${left(l)}</td>` : ''}</tr>`;
+      }).join('');
+      html += `<details class="prec"${precOpen ? ' open' : ''}><summary>Precincts · ${ids.length}</summary>
+        ${pNames.length ? `<div class="pbar"><label>City <select id="pCity"><option value="">All precincts</option>${pNames.map(n => `<option${n === precCity ? ' selected' : ''}>${esc(n)}</option>`).join('')}<option value="-"${precCity === '-' ? ' selected' : ''}>Outside a city</option></select></label></div>` : ''}
+        <div class="tablewrap"><table class="tt"><thead><tr><th>Precinct</th><th>City</th>${py.map(y => `<th class="r">${y}</th>`).join('')}<th class="r">2026 so far</th><th class="r">Ballots</th><th class="r">Registered</th>${p22 ? '<th class="r" title="More ballots needed for the precinct to reach its 2022 turnout">To match 2022</th>' : ''}</tr></thead><tbody>
+          ${rowsH}
+          <tr class="tot"><td colspan="${2 + py.length}">${shown.length} precinct${shown.length === 1 ? '' : 's'}</td><td class="r">${pc(rate({ ballots: tot.b, registered: tot.r }))}</td><td class="r">${fmt(tot.b)}</td><td class="r">${fmt(tot.r)}</td>${p22 ? `<td class="r">${fmt(tot.l)}</td>` : ''}</tr>
+        </tbody></table></div>
+        ${hc.precinct_lines_since ? `<div class="tnote">Precinct lines as of ${esc(hc.precinct_lines_since)}, so precinct history starts then.</div>` : ''}</details>`;
+    }
+    const notes = [];
+    if (hy.length) notes.push(`Past turnout from the Secretary of State's official statistics for each election${ay.length ? ', by party and by age' : ', by party'}. The 2026 party columns are ballots returned so far.`);
+    if (rep) notes.push(`City${Object.keys(pn).length ? ' and precinct' : ''} counts from ${esc(CSEL)} County's report of ${esc(rep.run)}${rep.stale ? ' (could not check for a newer one)' : ''}.${rep.note ? ' ' + esc(rep.note) : ''}`);
+    if (has22) notes.push('"To match 2022" is an estimate of how many more ballots it takes to reach 2022 turnout.');
+    if (notes.length) html += `<div class="tnote">${notes.join(' ')}</div>`;
+    return html;
+  }
+
+  // ---------- Local race standing and races that span counties ----------
+  const CLOSE = 2;  // points between the last winning spot and the next candidate
+  let cOnly = { close: false, span: false, diff: false };
+  const realCands = c => c.candidates.filter(x => x.name !== 'No Candidate Filed');
+  function standing(c) {
+    if (!c.total || /view results at/i.test(c.name)) return null;
+    const cs = [...realCands(c)].sort((a, b) => b.votes - a.votes);
+    const named = cs.filter(x => x.name !== 'Write-in').length;
+    const lead = cs.slice(0, c.vote_for).map(x => x.name).sort();
+    const next = cs[c.vote_for];
+    const gap = next ? cs[c.vote_for - 1].pct - next.pct : null;
+    const yes = c.kind === 'measure' ? cs.find(x => /^yes$/i.test(x.name)) : null, no = c.kind === 'measure' ? cs.find(x => /^no$/i.test(x.name)) : null;
+    const mgap = yes && no ? yes.pct - no.pct : null;
+    const unopp = c.kind !== 'measure' && named <= c.vote_for;
+    const g = mgap != null ? Math.abs(mgap) : gap;
+    // Votes between the last winning spot (or Yes and No) and the next one, against the ballots still to count.
+    const gv = mgap != null ? Math.abs(yes.votes - no.votes) : next ? cs[c.vote_for - 1].votes - next.votes : null;
+    const left = c.left != null ? c.left : contestLeft(c);
+    const reach = !unopp && gv != null && left != null && gv > left;
+    return { lead, gap: g, mgap, unopp, reach, decided: unopp || reach, close: !unopp && !reach && g != null && g < CLOSE };
+  }
+  // Ballots still to come in a county, estimated: its 2022 Governor vote, scaled by AP's expected
+  // statewide total for this year, plus 10%; never less than 5% of what is counted.
+  function ballotsLeft(n) {
+    const t = CTY && CTY.counties[n] && CTY.counties[n].turnout;
+    const g = H && H.years['2022'] && H.years['2022'].Governor && H.years['2022'].Governor.statewide;
+    if (!t || !g) return null;
+    const v22 = g.candidates.reduce((a, c) => a + ((c.counties || {})[n] || 0), 0);
+    const ap = live && live.sources.ap && (live.sources.ap.races || []).find(r => r.office === 'Governor');
+    const scale = ap && ap.expected_total && g.total ? ap.expected_total / g.total : 1;
+    return Math.max(v22 * scale * 1.1 - t.ballots, 0.05 * t.ballots);
+  }
+  // A contest's share of those: the county's ballots left times the share of its ballots that had this contest.
+  function contestLeft(c) {
+    if (!c._county) return null;
+    const left = ballotsLeft(c._county), b = CTY.counties[c._county].turnout.ballots;
+    return left == null || !b ? null : left * Math.min(1, c.total / c.vote_for / b);
+  }
+  function standingTag(c, st) {
+    if (st.unopp) return '<span class="pin won">✓ Unopposed</span>';
+    if (st.reach) return `<span class="pin won" title="Ahead by more votes than there are ballots left to count (estimated)">✓ ${st.mgap != null ? (st.mgap > 0 ? 'Passes' : 'Fails') : 'Out of reach'}</span>`;
+    if (st.gap == null) return '';
+    if (st.close) return `<span class="alert close">Close · ${st.gap.toFixed(1)} pts</span>`;
+    const by = Math.round(st.gap);
+    if (st.mgap != null) return `<span class="pin">${st.mgap > 0 ? 'Passing' : 'Failing'} by ${by} pts</span>`;
+    return `<span class="pin">${c.vote_for > 1 ? 'Last seat by' : 'Leads by'} ${by} pts</span>`;
+  }
+  // The same contest on other counties' pages, matched by name, and the totals across them.
+  let byName = null, byNameFor = null;
+  function spanInfo(c) {
+    const swn = CTY.other && CTY.other.SWNON ? CTY.other.SWNON.contests.some(x => x.name === c.name) : false;
+    if (!c.multi_county && !swn) return null;
+    if (byNameFor !== CTY) {
+      byName = new Map(); byNameFor = CTY;
+      Object.entries(CTY.counties).forEach(([n, cc]) => cc.contests.forEach(m => { if (!byName.has(m.name)) byName.set(m.name, []); byName.get(m.name).push([n, m]); }));
+    }
+    const parts = (byName.get(c.name) || []).slice().sort((a, b) => b[1].total - a[1].total);
+    if (parts.length < 2) return null;
+    const v = {}; let total = 0;
+    parts.forEach(([, m]) => { total += m.total; m.candidates.forEach(x => { v[x.name] = (v[x.name] || 0) + x.votes; }); });
+    const cands = Object.entries(v).filter(([n]) => n !== 'No Candidate Filed').map(([name, votes]) => ({ name, votes, pct: total ? 100 * votes / total : 0 })).sort((a, b) => b.votes - a.votes);
+    const left = parts.reduce((a, [n, m]) => a + (contestLeft({ ...m, _county: n }) || 0), 0);
+    const st = standing({ ...c, total, candidates: cands, left });
+    return { parts, total, cands, st };
+  }
+
+  // ---------- Demographics ----------
+  let DEM = null, gRace = 'Governor', gMode = 'exit', gSort = ['margin', 1];
+  const money = n => '$' + fmt(Math.round(n / 1000) * 1000);
+  const p0 = v => v == null ? '–' : Math.round(v) + '%';
+  function whoHTML(n) {
+    const v = DEM && DEM.counties[n], s = DEM && DEM.state;
+    if (!v) return '';
+    return `<div class="who">${p0(v.degree)} of adults have a college degree <span class="dim">(Oregon ${p0(s.degree)})</span> · ${money(v.income)} median household income <span class="dim">(Oregon ${money(s.income)})</span> · <a href="#groups">Demographics</a></div>`;
+  }
+  // Who lives in one county, against the state.
+  function whoTable(n) {
+    const v = DEM && DEM.counties[n], s = DEM && DEM.state;
+    if (!v) return '';
+    const br = DEM.income_brackets;
+    const cells = x => `${br.map(b => `<td class="r">${p0(x.income_brackets[b])}</td>`).join('')}<td class="r">${p0(x.women)}</td><td class="r">${p0(x.age_18_29)}</td><td class="r">${p0(x.age_65_up)}</td><td class="r">${p0(x.hispanic)}</td><td class="r">${p0(x.degree)}</td>`;
+    return `<div class="csec">Demographics</div><div class="tablewrap"><table class="tt"><thead><tr><th></th><th class="r" colspan="${br.length}">Households by income</th><th class="r">Women</th><th class="r" colspan="2">Adults aged</th><th class="r">Hispanic</th><th class="r">College degree</th></tr>
+      <tr><th></th>${br.map(b => `<th class="r">${esc(b)}</th>`).join('')}<th class="r"></th><th class="r">18 to 29</th><th class="r">65+</th><th class="r"></th><th class="r">Adults 25+</th></tr></thead>
+      <tbody><tr class="now"><td>${esc(n)}</td>${cells(v)}</tr><tr><td>Oregon</td>${cells(s)}</tr></tbody></table></div>
+      <div class="tnote">Census ${esc(DEM.acs_release)} survey (${esc(DEM.acs_years)}), ${fmt(v.population)} people in ${fmt(v.households)} households.${v.population < 5000 ? ' Small counties have wide survey margins; treat these as rough.' : ''}</div>`;
+  }
+  // ---------- Ballots returned by party ----------
+  const PARTIES = [['dem', 'Democrats'], ['rep', 'Republicans'], ['nav', 'Nonaffiliated'], ['ind', 'Independent Party'], ['oth', 'Other parties']];
+  function partyOf(n) {
+    const P = CTY && CTY.party;
+    if (!P || !P.returned) return null;
+    const names = n ? [n] : Object.keys(P.returned);
+    const add = src => {
+      const o = {};
+      names.forEach(c => Object.entries(src[c] || {}).forEach(([k, v]) => { o[k] = (o[k] || 0) + v; }));
+      o.oth = (o.total || 0) - ['dem', 'rep', 'nav', 'ind'].reduce((a, k) => a + (o[k] || 0), 0);
+      return o;
+    };
+    return { ret: add(P.returned), reg: add(P.registered) };
+  }
+  const prate = (p, k) => p && p.reg[k] ? 100 * p.ret[k] / p.reg[k] : null;
+  function partyHTML(n) {
+    const p = partyOf(n), s = partyOf(null), P = CTY && CTY.party;
+    if (!p) return '';
+    const row = ([k, label]) => `<tr><td>${label}</td><td class="r">${fmt(p.reg[k])}</td><td class="r">${fmt(p.ret[k])}</td><td class="r"><b>${pc(prate(p, k))}</b></td>${n ? `<td class="r">${pc(prate(s, k))}</td>` : ''}<td class="r">${p.ret.total ? Math.round(100 * p.ret[k] / p.ret.total) + '%' : ''}</td></tr>`;
+    return `<div class="csec">Ballots returned by party</div><div class="tablewrap"><table class="tt"><thead><tr><th>Registered as</th><th class="r">Registered</th><th class="r">Ballots returned</th><th class="r">Returned</th>${n ? '<th class="r">Oregon</th>' : ''}<th class="r">Share of ballots</th></tr></thead><tbody>
+      ${PARTIES.map(row).join('')}<tr class="tot"><td>All voters</td><td class="r">${fmt(p.reg.total)}</td><td class="r">${fmt(p.ret.total)}</td><td class="r">${pc(prate(p, 'total'))}</td>${n ? `<td class="r">${pc(prate(s, 'total'))}</td>` : ''}<td class="r">100%</td></tr></tbody></table></div>
+      <div class="tnote">Ballots the county has received, by the voter's party registration, from the Secretary of State's <a href="${esc(P.returns_url)}" target="_blank" rel="noopener">ballot returns report</a> of ${esc(P.returns_generated)}${P.stale ? ' (could not check for a newer one)' : ''}, against ${esc(P.registration_month)} <a href="${esc(P.registration_url)}" target="_blank" rel="noopener">registration</a>. This is who has voted, not how they voted. Received ballots run ahead of the vote count.</div>`;
+  }
+
+  // ---------- Exit poll ----------
+  let XP = null;
+  const xpRace = () => XP && XP.races && (XP.races[gRace] || Object.values(XP.races)[0]);
+  function exitPollHTML() {
+    const xp = xpRace();
+    if (!xp) return '<tr><td class="empty">No exit poll saved.</td></tr>';
+    if (xp.link_only) { $('#gHead').innerHTML = ''; return `<tr><td class="empty">The ${esc(xp.race)} exit poll is AP data and isn't copied here. <a href="${esc(xp.source_url)}" target="_blank" rel="noopener">See it on NBC News</a>.</td></tr>`; }
+    const [d, r] = xp.candidates;
+    const last = n => esc(n.split(' ').slice(-1)[0]);
+    $('#gHead').innerHTML = `<tr><th></th><th class="r" title="Share of all voters in this group">Share of voters</th><th class="r">${last(d.name)} <span class="ptag DEM">D</span></th><th class="r">${last(r.name)} <span class="ptag REP">R</span></th><th class="r">Margin</th></tr>`;
+    return xp.groups.map(g => `<tr><td class="grp" colspan="5">${esc(g.title)}</td></tr>` + g.rows.map(x => x.dem == null
+      ? `<tr><td>${esc(x.group)}</td><td class="r">${x.share}%</td><td class="r dim" colspan="3">Not enough data</td></tr>`
+      : `<tr><td>${esc(x.group)}</td><td class="r">${x.share}%</td><td class="r">${x.dem}%</td><td class="r">${x.rep}%</td><td class="r">${chip({ m: x.dem - x.rep })}</td></tr>`).join('')).join('');
+  }
+
+  function renderGroups() {
+    const races = ['Governor', 'U.S. Senate'];
+    $('#gRace').innerHTML = [['exit', 'Exit poll'], ['counties', 'County']].map(([k, l]) => `<button type="button" data-m="${k}"${k === gMode ? ' class="on"' : ''}>${l}</button>`).join('') +
+      '<span style="width:16px"></span>' + races.map(r => `<button type="button" data-r="${r}"${r === gRace ? ' class="on"' : ''}>${r}</button>`).join('');
+    if (gMode === 'exit') {
+      $('#gHead').closest('table').classList.remove('many');
+      $('#gBody').innerHTML = exitPollHTML();
+      const xp = xpRace();
+      $('#gNote').innerHTML = xp && !xp.link_only ? `How each group of voters said they voted for ${esc(xp.race)}. ${esc(xp.source)}, as of ${esc(xp.as_of)}: <a href="${esc(xp.source_url)}" target="_blank" rel="noopener">see the full poll</a>, which also has opinion questions. ${esc(xp.note)} "Not enough data" means too few people in the group answered to report.` : '';
+      return;
+    }
+    const race = live && live.sources.ap && live.sources.ap.races && live.sources.ap.races.find(r => r.office === gRace);
+    if (!DEM || !race || !race.candidates.some(c => c.counties)) { $('#gBody').innerHTML = '<tr><td class="empty">No county-level results yet.</td></tr>'; return; }
+    const refYear = SAME_SEAT[gRace];
+    const ref = H && H.years[String(refYear)] && H.years[String(refYear)][gRace] && H.years[String(refYear)][gRace].statewide;
+    const sum = (cands, list) => {
+      let d = 0, r = 0, t = 0;
+      cands.forEach(c => { const v = list.reduce((a, n) => a + ((c.counties || {})[n] || 0), 0); t += v; if (party1(c.party) === 'DEM') d += v; else if (party1(c.party) === 'REP') r += v; });
+      return { d, r, t, m: t ? 100 * (d - r) / t : null };
+    };
+    const stat = list => {
+      const now = sum(race.candidates, list), was = ref ? sum(ref.candidates, list) : null;
+      const tb = list.reduce((a, n) => { const t = CTY && CTY.counties[n] && CTY.counties[n].turnout; if (t) { a.ballots += t.ballots; a.registered += t.registered; } return a; }, { ballots: 0, registered: 0 });
+      return { now, shift: now.m != null && was && was.m != null ? now.m - was.m : null, turnout: rate(tb) };
+    };
+    const all = Object.keys(DEM.counties);
+    const note = `Each row is a county's own vote, so it shows how places voted; the exit poll shows how kinds of voters voted. "vs ${refYear}" is the change in margin from the ${refYear} ${esc(gRace)} race. Demographics: Census <a href="${esc(DEM.source_url)}" target="_blank" rel="noopener">${esc(DEM.acs_release)}</a> survey (${esc(DEM.acs_years)}).`;
+
+    // every county, with who lives there
+    $('#gHead').closest('table').classList.add('many');
+    const br = DEM.income_brackets;
+    const rowsC = all.map(n => ({ n, d: DEM.counties[n], x: stat([n]) }));
+    const key = { county: r => r.n, margin: r => r.x.now.m ?? -999, shift: r => r.x.shift ?? -999, turnout: r => r.x.turnout ?? -1,
+      degree: r => r.d.degree, income: r => r.d.income, women: r => r.d.women, young: r => r.d.age_18_29, old: r => r.d.age_65_up, hispanic: r => r.d.hispanic,
+      pdem: r => prate(partyOf(r.n), 'dem') ?? -1, prep: r => prate(partyOf(r.n), 'rep') ?? -1, pnav: r => prate(partyOf(r.n), 'nav') ?? -1 };
+    br.forEach((b, i) => { key['b' + i] = r => r.d.income_brackets[b]; });
+    const [sk, dir] = gSort, kf = key[sk] || key.margin;
+    rowsC.sort((a, b) => { const A = kf(a), B = kf(b); return (typeof A === 'string' ? A.localeCompare(B) : A - B) * (sk === 'county' ? 1 : -1) * dir; });
+    const th = (k, label, cls = 'r') => `<th class="${cls}" data-s="${k}" style="cursor:pointer">${label}${sk === k ? (dir > 0 ? ' ▾' : ' ▴') : ''}</th>`;
+    $('#gHead').innerHTML = `<tr>${th('county', 'County', '')}${th('margin', 'Margin')}${th('shift', 'vs ' + refYear)}${th('turnout', 'Turnout')}${th('pdem', 'Dems returned')}${th('prep', 'Reps returned')}${th('pnav', 'Nonaffil. returned')}${th('degree', 'College')}${th('income', 'Median income')}${br.map((b, i) => th('b' + i, esc(b))).join('')}${th('women', 'Women')}${th('young', 'Adults 18 to 29')}${th('old', 'Adults 65+')}${th('hispanic', 'Hispanic')}</tr>`;
+    const cells = d => `<td class="r">${p0(d.degree)}</td><td class="r">${money(d.income)}</td>${br.map(b => `<td class="r">${p0(d.income_brackets[b])}</td>`).join('')}<td class="r">${p0(d.women)}</td><td class="r">${p0(d.age_18_29)}</td><td class="r">${p0(d.age_65_up)}</td><td class="r">${p0(d.hispanic)}</td>`;
+    const pcells = n => { const p = partyOf(n); return ['dem', 'rep', 'nav'].map(k => `<td class="r">${pc(prate(p, k))}</td>`).join(''); };
+    const sx = stat(all);
+    $('#gBody').innerHTML = `<tr class="now"><td>All of Oregon</td><td class="r">${chip(sx.now.m == null ? null : { m: sx.now.m })}</td><td class="r">${shiftChip(sx.shift)}</td><td class="r">${pc(sx.turnout)}</td>${pcells(null)}${cells(DEM.state)}</tr>` +
+      rowsC.map(r => `<tr><td><a href="#county/${encodeURIComponent(r.n)}">${esc(r.n)}</a></td><td class="r">${chip(r.x.now.m == null ? null : { m: r.x.now.m })}</td><td class="r">${shiftChip(r.x.shift)}</td><td class="r">${pc(r.x.turnout)}</td>${pcells(r.n)}${cells(r.d)}</tr>`).join('');
+    $('#gNote').innerHTML = `Click a column to sort. "Dems returned" and the like are the share of each party's registered voters whose ballots the county has received (Secretary of State report of ${esc((CTY && CTY.party && CTY.party.returns_generated) || '')}). Income brackets are the share of households. Small counties have wide survey margins. ` + note;
+  }
+
+  // ---------- Race rows, used on county pages and the Pinned view ----------
+  function raceInfo(c, county) {
+    const v = { st: standing({ ...c, _county: county }), sp: county ? spanInfo(c) : null };
+    v.diff = !!(v.sp && v.st && v.sp.st && v.st.lead.join('|') !== v.sp.st.lead.join('|'));
+    return v;
+  }
+  function partyRowHTML(x, ctx) {
+    const thr = Number($('#fThr').value);
+    const top = x.cands.filter(c => c.name !== 'Write-in').slice(0, 3);
+    const won = /^called/i.test(x.r.call_status || '') ? x.r.winner : '';
+    const res = top.map((c, i) => `<span class="${i ? 'dim' : 'lead'}">${c.name === won ? `<span class="won" title="AP called the race for ${esc(won)}">✓</span>` : ''}${esc(c.name)} ${c.party ? `<span class="ptag ${['DEM', 'REP'].includes(party1(c.party)) ? party1(c.party) : 'oth'}">${esc(pk(c.party))}</span>` : ''} <b>${c.pct.toFixed(1)}%</b></span>`).join('');
+    const scope = x.countyView ? `${esc(ctx)} County vote` : STATEWIDE.has(x.r.office) ? 'Statewide vote' : 'Whole district vote';
+    const share = ctx && !STATEWIDE.has(x.r.office) && !x.countyView ? (() => { const v = countyShare(x) || {}, tot = Object.values(v).reduce((a, b) => a + b, 0); return tot && v[ctx] ? ` · ${Math.round(100 * v[ctx] / tot)}% of its voters live here` : ''; })() : '';
+    const mv = x.shift == null ? '' : Math.abs(x.shift) >= thr
+      ? `<span class="alert ${x.shift > 0 ? 'D' : 'R'}">${x.shift > 0 ? 'D' : 'R'} gain ${Math.round(Math.abs(x.shift))}</span>` : '<span class="alert none">Steady</span>';
+    const k = 'p|' + x.r.office + '|' + x.r.district;
+    return `<div class="crow${openK.has(k) ? ' open' : ''}" data-k="${esc(k)}"><div class="rn">${pinBtn(k)}${caret(k)}${esc(label(x.r))}<small>${scope}${share}</small></div>
+      <div class="res">${x.cur.none ? '<span class="dim">No votes counted yet</span>' : res}</div>
+      <div class="k">${x.cur.none ? '' : chip(x.cur)}</div><div class="k">${shiftChip(x.shift)}</div><div class="k"><span class="pin">vs ${x.refYear}</span></div><div class="k end">${mv}</div></div>${openK.has(k) ? `<div class="cdet">${partyDetail(x, ctx)}</div>` : ''}`;
+  }
+  function localRowHTML(c, county, inf, showCounty) {
+    const rcv = /view results at/i.test(c.name);
+    const { st, sp, diff } = inf;
+    const shown = c.candidates.filter(x => !(x.name === 'Write-in' && x.votes === 0) && x.name !== 'No Candidate Filed');
+    const dec = sp ? sp.st : st, wonBy = dec && dec.decided && c.kind !== 'measure' ? new Set(dec.lead) : new Set();
+    const tick = n => wonBy.has(n) && n !== 'Write-in' ? `<span class="won" title="${dec.unopp ? 'Unopposed' : 'Ahead by more votes than there are ballots left to count (estimated)'}">✓</span>` : '';
+    const res = rcv ? '<span class="dim">Ranked-choice: counts at <a href="https://rcvresults.multco.us" target="_blank" rel="noopener">rcvresults.multco.us</a></span>'
+      : !c.total ? '<span class="dim">No votes counted yet</span>'
+      : shown.slice(0, Math.max(3, c.vote_for)).map((x, i) => `<span class="${i < c.vote_for ? 'lead' : 'dim'}">${tick(x.name)}${esc(x.name)}${x.party ? ` <span class="ptag ${['DEM', 'REP'].includes(party1(x.party)) ? party1(x.party) : 'oth'}">${esc(pk(x.party))}</span>` : ''} <b>${x.pct.toFixed(1)}%</b></span>`).join('');
+    const stat = rcv || !st ? '' : diff ? `<span class="alert diff">${c.kind === 'measure' ? 'Different result overall' : 'Different leader overall'}</span>` : standingTag(c, sp ? sp.st : st);
+    const spanLine = sp ? (() => {
+      const names = sp.parts.map(([n]) => n), lead = sp.cands.slice(0, c.vote_for);
+      const where = names.length === 2 ? `Across ${names[0]} and ${names[1]}` : `Across ${names.length} counties`;
+      const split = sp.parts.slice(0, 4).map(([n, m]) => `${esc(n)} ${fmt(m.total)}`).join(' · ') + (sp.parts.length > 4 ? ` · ${sp.parts.length - 4} more` : '');
+      return `<div class="span">${where}: ${lead.map(x => `<b>${tick(x.name)}${esc(x.name)} ${x.pct.toFixed(1)}%</b>`).join(', ')} of ${fmt(sp.total)} votes · ${split}</div>`;
+    })() : '';
+    const k = 'c|' + (county || 'SW') + '|' + c.id;
+    return `<div class="crow${openK.has(k) ? ' open' : ''}" data-k="${esc(k)}"><div class="rn">${pinBtn(k)}${caret(k)}${esc(cleanName(c.name))}<small>${showCounty && county ? esc(county) + " County · " : ""}${c.vote_for > 1 ? `Vote for ${c.vote_for} · ` : ''}${fmt(c.total)} votes${sp ? ' here' : ''}</small></div>
+      <div class="res mid">${res}</div><div class="st">${stat}</div>${spanLine}</div>${openK.has(k) ? `<div class="cdet">${localDetail(c, county)}</div>` : ''}`;
+  }
+
+  // ---------- Pinned races ----------
+  function renderPinned() {
+    if (!pins.length) { $('#pinBody').innerHTML = '<div class="empty">Click the ☆ next to any race to pin it here. Pins stay until you unpin them.</div>'; return; }
+    const all = live ? rows() : [];
+    const html = pins.map(k => {
+      const [kind, a, b] = k.split('|');
+      if (kind === 'p') { const x = all.find(x => x.r.office === a && x.r.district === b); return x ? partyRowHTML(x, '') : ''; }
+      const list = a === 'SW' ? ((CTY && CTY.other && CTY.other.SWNON) || {}).contests || [] : ((CTY && CTY.counties[a]) || {}).contests || [];
+      const c = list.find(c => c.id === b);
+      return c ? localRowHTML(c, a === 'SW' ? '' : a, raceInfo(c, a === 'SW' ? '' : a), true) : '';
+    }).join('');
+    $('#pinBody').innerHTML = `<div class="csec" style="margin-top:0">Pinned races · ${pins.length}</div><div class="clist">${html || '<div class="empty">Loading…</div>'}</div>
+      <div class="tnote">Click a race to open it; click ★ to unpin. Pins are saved in this browser.</div>`;
+  }
+
+  // ---------- One county ----------
+  const BALLOT = ['Governor', 'U.S. Senate', 'U.S. House', 'State Senate', 'State House'];
+  const pk = p => { const k = party1(p); return k === 'DEM' ? 'D' : k === 'REP' ? 'R' : k; };
+  function renderCounty() {
+    if (!CSEL) return;
+    const cty = CTY && CTY.counties[CSEL];
+    const t = cty ? cty.turnout : null;
+    $('#cHead').innerHTML = `<div class="chead"><div><h2>${esc(CSEL)} County</h2>
+      <div class="sub">${cty && cty.updated ? 'Secretary of State results updated ' + esc(cty.updated) : ''}${cty && cty.stale ? ' · <span style="color:var(--warn)">stale</span>' : ''}</div>${whoHTML(CSEL)}</div>
+      <div class="tnum">${t ? `<div class="big">${t.pct != null ? t.pct.toFixed(1) + '%' : '–'}</div><div class="sub">turnout · ${fmt(t.ballots)} of ${fmt(t.registered)} registered</div>` : ''}</div></div>`;
+
+    // federal and state races on this county's ballot
+    let party = [];
+    if (live) {
+      const all = rows();                       // statewide numbers, for membership
+      const inIt = new Set(all.filter(x => STATEWIDE.has(x.r.office) || ((countyShare(x) || {})[CSEL] > 0)).map(x => x.r.office + '|' + x.r.district));
+      CCTX = CSEL; party = rows().filter(x => inIt.has(x.r.office + '|' + x.r.district)); CCTX = '';
+      party.sort((a, b) => BALLOT.indexOf(a.r.office) * 1000 + (+a.r.district || 0) - (BALLOT.indexOf(b.r.office) * 1000 + (+b.r.district || 0)));
+    }
+    const partyRow = x => partyRowHTML(x, CSEL);
+
+    // local races, grouped
+    const local = cty ? cty.contests : [];
+    const GROUPS = [['county', 'County offices'], ['judicial', 'Judges'], ['city', 'City races'], ['district', 'School, fire, water and other districts'], ['measure', 'Measures']];
+    const info = new Map(local.map(c => [c, raceInfo(c, CSEL)]));
+    const localRow = c => localRowHTML(c, CSEL, info.get(c));
+    const counts = { close: 0, span: 0, diff: 0 };
+    info.forEach(v => { if (v.st && v.st.close) counts.close++; if (v.sp) counts.span++; if (v.diff) counts.diff++; });
+    const keep = c => { const v = info.get(c); return (!cOnly.close || (v.st && v.st.close)) && (!cOnly.span || v.sp) && (!cOnly.diff || v.diff); };
+    const box = (k, label) => `<label class="ck"><input type="checkbox" data-only="${k}"${cOnly[k] ? ' checked' : ''}${counts[k] || cOnly[k] ? '' : ' disabled'}> ${label} <span class="n">${counts[k]}</span></label>`;
+    const tabs = [['races', 'Races'], ['turnout', 'Turnout'], ['who', 'Demographics']];
+    let html = `<div class="ctabs" id="cTabs">${tabs.map(([k, l]) => `<button type="button" data-t="${k}"${k === cTab ? ' class="on"' : ''}>${l}</button>`).join('')}</div>`;
+    if (cTab === 'turnout') { $('#cBody').innerHTML = html + turnoutHTML(cty) + partyHTML(CSEL); return; }
+    if (cTab === 'who') { $('#cBody').innerHTML = html + whoTable(CSEL); return; }
+    if (party.length) html += `<div class="csec">Federal and state</div><div class="clist">${party.map(partyRow).join('')}</div>`;
+    if (local.length) html += `<div class="cfilt"><span class="lbl">Local races, show only</span>${box('close', `Close (under ${CLOSE} pts)`)}${box('span', 'Spans counties')}${box('diff', 'Different leader overall')}</div>`;
+    let any = false;
+    GROUPS.forEach(([k, name]) => {
+      const all = local.filter(c => cat(c) === k), list = all.filter(keep);
+      if (list.length) { any = true; html += `<div class="csec">${name} · ${list.length}${list.length < all.length ? ` of ${all.length}` : ''}</div><div class="clist">${list.map(localRow).join('')}</div>`; }
+    });
+    if (local.length && !any) html += '<div class="empty">No local races match.</div>';
+    $('#cBody').innerHTML = html || '<div class="empty">Loading…</div>';
+  }
+
+  // ---------- Views ----------
+  let view = 'party';
+  function showView(v) {
+    if (v && v.startsWith('county/')) { CSEL = decodeURIComponent(v.slice(7)); v = 'county'; }
+    if (!v && pins.length) v = 'pinned';
+    view = ['pinned', 'party', 'all', 'turnout', 'county', 'groups'].includes(v) && (v !== 'county' || CSEL) ? v : 'party';
+    if (view !== 'county') CSEL = '';
+    $('#gCounty').value = CSEL;
+    document.querySelectorAll('#views button').forEach(b => b.classList.toggle('on', b.dataset.v === view));
+    $('#vParty').hidden = view !== 'party'; $('#vAll').hidden = view !== 'all'; $('#vTurnout').hidden = view !== 'turnout'; $('#vCounty').hidden = view !== 'county'; $('#vGroups').hidden = view !== 'groups'; $('#vPinned').hidden = view !== 'pinned';
+    if (view === 'county') { renderCounty(); window.scrollTo(0, 0); }
+    if (view === 'all') renderAll();
+    if (view === 'turnout') renderTurnout();
+    if (view === 'groups') renderGroups();
+    if (view === 'pinned') renderPinned();
+  }
+  $('#gRace').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.r) gRace = b.dataset.r; if (b.dataset.m) gMode = b.dataset.m; renderGroups(); });
+  $('#gHead').addEventListener('click', e => { const t = e.target.closest('th[data-s]'); if (!t) return; gSort = [t.dataset.s, gSort[0] === t.dataset.s ? -gSort[1] : 1]; renderGroups(); });
+  $('#views').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    history.replaceState(null, '', '#' + b.dataset.v); showView(b.dataset.v);
+  });
+  $('#cBody').addEventListener('change', e => {
+    if (e.target.id === 'pCity') { precCity = e.target.value; renderCounty(); }
+    if (e.target.dataset.only) { cOnly[e.target.dataset.only] = e.target.checked; renderCounty(); }
+  });
+  const toggleRace = (e, then) => {
+    if (e.target.closest('a, input, select, button, .cdet')) return false;
+    const el = e.target.closest('[data-k]'); if (!el) return false;
+    const k = el.dataset.k; openK.has(k) ? openK.delete(k) : openK.add(k); then(); return true;
+  };
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.pinb'); if (!b) return;
+    e.stopPropagation();
+    togglePin(b.dataset.pin);
+    if (view === 'party') render(); if (view === 'all') renderAll(); if (view === 'county') renderCounty(); if (view === 'pinned') renderPinned();
+  }, true);
+  $('#pinBody').addEventListener('click', e => toggleRace(e, renderPinned));
+  $('#aList').addEventListener('click', e => toggleRace(e, renderAll));
+  $('#cBody').addEventListener('click', e => {
+    const t = e.target.closest('#cTabs button');
+    if (t) { cTab = t.dataset.t; renderCounty(); return; }
+    if (toggleRace(e, renderCounty)) return;
+    if (e.target.closest('#pastTog')) { pastOpen = !pastOpen; try { localStorage.setItem('pastOpen', pastOpen ? '1' : '0'); } catch (err) {} renderCounty(); }
+  });
+  $('#cBody').addEventListener('toggle', e => { if (e.target.matches('details.prec')) precOpen = e.target.open; }, true);
+  $('#aFind').addEventListener('input', renderAll);
+  $('#aTypes').addEventListener('change', renderAll);
+  $('#tBody').addEventListener('click', e => {
+    const b = e.target.closest('[data-county]'); if (!b) return;
+    setCounty(b.dataset.county);
+  });
+
+  function render() {
+    if (!live) { $('#tbody').innerHTML = '<tr><td colspan="8" class="empty">No live results file yet. The GitHub Action writes data/live.json every 20 minutes.</td></tr>'; return; }
+    renderSrc();
+    const rs = rows();
+    renderCards(rs);
+    renderTable(rs);
+  }
+
+  // local/ holds fetches made on this Mac by scripts/serve.py; data/ is the GitHub Action's copy.
+  // Use whichever was generated more recently.
+  async function getJSON(name, bust) {
+    const get = u => fetch(u + bust).then(r => r.ok ? r.json() : null).catch(() => null);
+    const [a, b] = await Promise.all([get('local/' + name), get('data/' + name)]);
+    const when = d => d ? (d.generated_at || d.fetched_at || '') : '';
+    return a && (!b || when(a) >= when(b)) ? a : b;
+  }
+
+  async function load() {
+    const bust = '?t=' + Math.floor(Date.now() / 60000);
+    const once = (have, url) => have ? Promise.resolve(have) : fetch(url).then(r => r.ok ? r.json() : null).catch(() => null);
+    const [l, h, th, dm, xp] = await Promise.all([
+      getJSON('live.json', bust), once(H, 'data/history.json'), once(TH, 'data/turnout_history.json'), once(DEM, 'data/demographics.json'), once(XP, 'data/exit_poll.json'),
+    ]);
+    live = l; H = h; TH = th; DEM = dm; XP = xp;
+    sharedMode();
+    CTY = await getJSON('counties.json', bust);
+    render();
+    if (view === 'all') renderAll();
+    if (view === 'turnout') renderTurnout();
+    if (view === 'county') renderCounty();
+    if (view === 'groups') renderGroups();
+    if (view === 'pinned') renderPinned();
+  }
+
+  $('#fOffice').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    officeSel = b.dataset.v;
+    document.querySelectorAll('#fOffice button').forEach(x => x.classList.toggle('on', x === b));
+    render();
+  });
+  $('#fChecks').addEventListener('change', render);
+  ['#fRef', '#fSort', '#fThr', '#fSrc'].forEach(s => $(s).addEventListener('change', render));
+  $('#fFind').addEventListener('input', render);
+  $('#tbody').addEventListener('click', e => {
+    const tr = e.target.closest('tr.row'); if (!tr) return;
+    const id = tr.dataset.id; open.has(id) ? open.delete(id) : open.add(id);
+    renderTable(rows());
+  });
+  COUNTY_NAMES.forEach(n => $('#gCounty').add(new Option(n + ' County', n)));
+  // Picking a county opens its page; "All of Oregon" goes back to party races.
+  function setCounty(n) {
+    const h = n ? '#county/' + encodeURIComponent(n) : '#party';
+    if (location.hash !== h) location.hash = h; else showView(h.slice(1));
+  }
+  $('#gCounty').addEventListener('change', e => setCounty(e.target.value));
+  pinCount();
+  showView(location.hash.slice(1));
+  window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
+  load();
+  setInterval(load, 5 * 60 * 1000);
+  $('#refresh').addEventListener('click', async () => {
+    const b = $('#refresh'); b.disabled = true; b.textContent = 'Refreshing…';
+    try {
+      const r = await fetch('/refresh', { method: 'POST' });
+      b.textContent = r.ok ? 'Updated' : 'Reloaded';
+    } catch (e) { b.textContent = 'Reloaded'; }
+    await load();
+    setTimeout(() => { b.textContent = 'Refresh'; b.disabled = false; }, 1500);
+  });
+})();
+</script>
+</body>
+</html>
