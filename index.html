@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oregon Results Desk</title>
+<title>Oregon 2026 Election Results</title>
 <meta name="description" content="Oregon 2026 general election results with point shift against past elections and the party breakdown of the Legislature.">
 <style>
   :root {
@@ -12,7 +12,7 @@
     --bar: #24508f; --bar-fg: #ffffff;
     --dem: #1f5fbf; --dem-bg: #e3edfb; --dem-soft: #9dbbe8;
     --rep: #c4312b; --rep-bg: #fbe5e3; --rep-soft: #eba7a2;
-    --tie-bg: #eceff4; --oth: #8b93a1; --warn: #a15c00; --hl: #fff0a3; --win: #1a7f37;
+    --tie-bg: #eceff4; --oth: #8b93a1; --warn: #a15c00; --shadow: 0 1px 3px rgba(20, 30, 50, .06); --hl: #fff0a3; --win: #1a7f37;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -20,7 +20,7 @@
       --bar: #1c3a66; --bar-fg: #ffffff;
       --dem: #7fadf2; --dem-bg: #1b2d4a; --dem-soft: #3f6aa8;
       --rep: #f08a83; --rep-bg: #45201f; --rep-soft: #9c4a45;
-      --tie-bg: #262d39; --oth: #7d8697; --warn: #e3a64b; --hl: #4d4214; --win: #57c27a;
+      --tie-bg: #262d39; --oth: #7d8697; --warn: #e3a64b; --shadow: none; --hl: #4d4214; --win: #57c27a;
     }
   }
   * { box-sizing: border-box; }
@@ -34,7 +34,7 @@
   .wrap { max-width: 1320px; margin: 0 auto; padding: 20px 24px 40px; }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 18px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 14px; padding: 16px 18px; }
   .card h2 { margin: 0 0 2px; font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
   .card .big { font-size: 1.6rem; font-weight: 750; letter-spacing: -.02em; margin: 4px 0 2px; }
   .card .sub { font-size: .875rem; color: var(--muted); }
@@ -54,14 +54,14 @@
   .cpick { display: flex; align-items: center; gap: 8px; font-size: .875rem; font-weight: 600; }
   .cpick select { font: inherit; font-size: .9375rem; color: var(--fg); background: var(--card); border: 0; border-radius: 7px; padding: 6px 10px; min-width: 170px; }
   .cnote { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--bar); border-radius: 8px; padding: 8px 12px; font-size: .9375rem; margin-bottom: 10px; }
-  .chead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
+  .chead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 16px; }
   .chead h2 { margin: 0; font-size: 1.6rem; letter-spacing: -.01em; }
   .chead .sub { font-size: .9375rem; color: var(--muted); }
   .chead .tnum { text-align: right; }
   .chead .tnum .big { font-size: 1.6rem; font-weight: 750; }
-  .csec { margin: 18px 0 8px; font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-  .clist { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-  .crow { display: grid; grid-template-columns: minmax(180px, 1.3fr) minmax(220px, 2fr) 64px 56px 60px 84px; gap: 6px 12px; align-items: center; padding: 9px 14px; border-bottom: 1px solid var(--line2); font-size: .9375rem; }
+  .csec { margin: 26px 0 10px; font-size: .875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .clist { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 14px; overflow: hidden; }
+  .crow { display: grid; grid-template-columns: minmax(180px, 1.3fr) minmax(220px, 2fr) 64px 56px 60px 84px; gap: 6px 12px; align-items: center; padding: 13px 18px; border-bottom: 1px solid var(--line2); font-size: .9375rem; }
   .crow:last-child { border-bottom: 0; }
   .crow .rn { font-weight: 700; }
   .crow .rn small { display: block; font-weight: 500; color: var(--muted); font-size: .8125rem; }
@@ -100,7 +100,7 @@
   .tgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr)); gap: 12px; align-items: start; }
   table.tt { min-width: 0; }
   .tgrid > .tablewrap:first-child { grid-column: 1 / -1; }
-  table.tt th, table.tt td { padding: 6px 10px; }
+  table.tt th, table.tt td { padding: 9px 12px; }
   table.tt td.r, table.tt th.r { text-align: right; }
   table.tt td:first-child { white-space: nowrap; }
   table.tt tr.now td { font-weight: 700; background: var(--line2); }
@@ -122,7 +122,7 @@
   .ctygroup h2 { font-size: 1.05rem; margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--line); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
   .ctygroup h2 small { font-weight: 500; color: var(--muted); font-size: .875rem; }
   .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px; }
-  .contest { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .contest { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 14px; padding: 12px 14px; }
   .contest .cat { font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
   .contest h3 { font-size: 1rem; margin: 2px 0 8px; line-height: 1.25; }
   .contest .c-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 10px; font-size: .875rem; margin: 5px 0 1px; font-variant-numeric: tabular-nums; }
@@ -137,6 +137,21 @@
   .contest .foot { font-size: .8125rem; color: var(--muted); margin-top: 8px; }
   .contest .more { font-size: .8125rem; color: var(--muted); margin-top: 4px; }
   [data-k] { cursor: pointer; }
+  .howto { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--bar); border-radius: 14px; padding: 14px 18px; margin: 18px 0 0; box-shadow: var(--shadow); }
+  .howto .hhead { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .howto button { font: inherit; font-weight: 600; color: var(--card); background: var(--bar); border: 0; border-radius: 8px; padding: 6px 14px; cursor: pointer; }
+  .howto ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .howto li { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .howto .pinb { cursor: default; }
+  .sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+  .sumlinks { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .sumlinks a { font-weight: 600; color: var(--bar); background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 9px 14px; text-decoration: none; }
+  .sumlinks a:hover { border-color: var(--bar); }
+  .lede { font-size: 1.05rem; margin: 0 0 10px; }
+  .share { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+  .share input { flex: 1 1 320px; font: inherit; font-size: .875rem; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; }
+  .share button { font: inherit; font-weight: 600; color: #fff; background: var(--bar); border: 0; border-radius: 8px; padding: 7px 14px; cursor: pointer; }
+  .newtag { display: inline-block; font-size: .8125rem; font-weight: 700; color: #fff; background: var(--win); border-radius: 6px; padding: 1px 7px; vertical-align: 2px; }
   .pinb { font: inherit; font-size: 1.05rem; line-height: 1; color: var(--muted); background: none; border: 0; padding: 0 6px 0 0; cursor: pointer; vertical-align: -1px; }
   .pinb.on { color: #d4a017; }
   .pinb:hover { color: #d4a017; }
@@ -164,7 +179,7 @@
   .tabs button { font: inherit; font-size: .9375rem; font-weight: 600; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
   .tabs button.on { background: var(--bar); border-color: var(--bar); color: var(--bar-fg); }
   .where { font-size: .8125rem; color: var(--muted); margin-top: 1px; white-space: nowrap; max-width: 300px; overflow: hidden; text-overflow: ellipsis; }
-  .checks { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 28px; margin-bottom: 10px; }
+  .checks { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 28px; margin-bottom: 10px; }
   .checks .grp { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
   .checks .grp > b { font-size: .8125rem; color: var(--muted); margin-right: 4px; }
   .ck { display: inline-flex; align-items: center; gap: 6px; font-size: .9375rem; font-weight: 600; padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; user-select: none; }
@@ -174,7 +189,7 @@
   .ck.D:has(input:checked) { background: var(--dem-bg); border-color: var(--dem); }
   .ck.R:has(input:checked) { background: var(--rep-bg); border-color: var(--rep); }
   .ck .n { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .controls { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: flex-end; margin-bottom: 10px; }
+  .controls { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: flex-end; margin-bottom: 10px; }
   .controls label { display: flex; flex-direction: column; gap: 4px; font-size: .8125rem; font-weight: 600; color: var(--muted); }
   .controls select, .controls input { font: inherit; font-size: .9375rem; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 7px; padding: 7px 10px; min-width: 150px; }
   .controls input { min-width: 200px; }
@@ -182,11 +197,11 @@
   .keyline { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: .875rem; color: var(--muted); margin: 0 2px 10px; }
   .keyline i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
 
-  .tablewrap { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+  .tablewrap { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 14px; overflow-x: auto; }
   table { border-collapse: collapse; width: 100%; min-width: 760px; font-variant-numeric: tabular-nums; }
   th { position: sticky; top: 0; background: var(--card); text-align: left; font-size: .8125rem; font-weight: 700; color: var(--muted); padding: 10px 8px; border-bottom: 2px solid var(--line); white-space: nowrap; }
   th.c, td.c { text-align: center; }
-  td { padding: 7px 8px; border-bottom: 1px solid var(--line2); vertical-align: middle; font-size: .9375rem; }
+  td { padding: 10px 10px; border-bottom: 1px solid var(--line2); vertical-align: middle; font-size: .9375rem; }
   tr.row { cursor: pointer; }
   tr.row:hover td { background: var(--line2); }
   tr.row td:first-child { border-left: 4px solid transparent; }
@@ -234,12 +249,13 @@
 </head>
 <body>
 <div class="topbar"><div class="in">
-  <h1>Oregon Results Desk · 2026 General</h1>
+  <h1>Oregon 2026 Election Results</h1>
   <label class="cpick">County
     <select id="gCounty"><option value="">All of Oregon</option></select>
   </label>
   <button type="button" class="refresh" id="refresh" title="Fetch the newest results now">Refresh</button>
   <nav class="views" id="views">
+    <button type="button" data-v="summary">Summary</button>
     <button type="button" data-v="pinned">Pinned</button>
     <button type="button" data-v="party" class="on">Partisan</button>
     <button type="button" data-v="all">All races</button>
@@ -355,6 +371,23 @@
   <div id="cBody"></div>
 </div>
 
+<div class="wrap" id="howto" hidden>
+  <div class="howto">
+    <div class="hhead"><b>How to read this page</b><button type="button" id="howtoClose">Got it</button></div>
+    <ul>
+      <li><span class="chip D">D+6</span> <span class="chip R">R+6</span> How far ahead the leading party is, in percentage points.</li>
+      <li><span class="chip D">+3</span> The change in that lead since the last time the seat was on the ballot. Blue moved toward Democrats, red toward Republicans.</li>
+      <li><span class="won">✓</span> The winner: called by the news outlets, unopposed, or too far ahead to catch.</li>
+      <li><span class="pinb on">★</span> Pin a race to keep it on your Pinned tab.</li>
+      <li>Click any race to see every candidate and how the seat voted before. Pick a county at the top to see every race on its ballot.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="wrap view" id="vSummary" hidden>
+  <div id="sumBody"></div>
+</div>
+
 <div class="wrap view" id="vPinned" hidden>
   <div id="pinBody"></div>
 </div>
@@ -379,6 +412,7 @@
 <footer>
   <p id="srcAP">Current results come from the Associated Press election data behind news-outlet result embeds (race calls and AP's estimate of the expected vote counted) and from the Oregon Secretary of State's unofficial results. Oregon counts ballots postmarked by Election Day that arrive within seven days, so margins move for a week or more. Counties certify in about three weeks; the Secretary of State certifies in early December.</p>
   <p>History (2008 to 2024) is from <a href="https://github.com/openelections/openelections-data-or">OpenElections</a>, transcribed from county and Secretary of State canvasses. Congressional and legislative districts were redrawn before 2022, so district margins before 2022 are a different map. Seat counts "now" are the parties that won each seat at its last election.</p>
+  <p><a href="#" id="howtoOpen">How to read this page</a></p>
   <p id="credAP">Election results © The Associated Press where marked AP.</p>
   <p id="srcShared" hidden>Current results are the Oregon Secretary of State's unofficial results and the counties' own reports. Oregon counts ballots postmarked by Election Day that arrive within seven days, so margins move for a week or more. Counties certify in about three weeks; the Secretary of State certifies in early December. This shared copy has no race calls; a ✓ marks unopposed candidates and leaders too far ahead to catch. It updates about every 20 minutes.</p>
 </footer>
@@ -434,7 +468,7 @@
   }
   function chip(x, cls = '') {
     if (!x) return '<span class="chip T">–</span>';
-    if (x.unc) return `<span class="chip ${x.unc} ${cls}" title="No ${x.unc === 'D' ? 'Republican' : 'Democrat'} on the ballot">${x.unc} unc.</span>`;
+    if (x.unc) return `<span class="chip ${x.unc} ${cls}" title="No ${x.unc === 'D' ? 'Republican' : 'Democrat'} on the ballot">Unopposed (${x.unc})</span>`;
     if (x.m == null) return '<span class="chip T">–</span>';
     const r = Math.round(x.m);
     const title = `${x.m >= 0 ? 'D' : 'R'}+${Math.abs(x.m).toFixed(1)}`;
@@ -756,10 +790,34 @@
       const d = new Date(v);
       return isNaN(d) ? esc(v) : d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles' }) + ' PT';
     };
-    const one = (k, name) => s[k] && s[k].ok
-      ? `<span><b>${name}</b> ${when(s[k].data_updated)}${s[k].stale ? ' <span class="stale">(stale)</span>' : ''}</span>`
+    const one = (k, name, verb) => s[k] && s[k].ok
+      ? `<span><b>${name}</b> ${verb} ${when(s[k].data_updated)}${s[k].stale ? ' <span class="stale">(couldn\'t reach it last check)</span>' : ''}</span>`
       : `<span><b>${name}</b> <span class="stale">unavailable</span></span>`;
-    $('#src').innerHTML = (s.ap ? one('ap', 'AP') : '') + one('sos', 'Secretary of State');
+    $('#src').innerHTML = `<span id="checked">${checkedText()}</span>` + one('sos', 'State', 'last posted') + (s.ap ? one('ap', 'AP', 'last updated') : '');
+  }
+  // When this page's data was last fetched from the sources (by this Mac or by the GitHub updater).
+  function checkedText() {
+    const at = [live && live.generated_at, CTY && CTY.fetched_at].filter(Boolean).map(v => new Date(v)).filter(d => !isNaN(d));
+    if (!at.length) return '';
+    const mins = Math.round((Date.now() - Math.max(...at)) / 60000);
+    return `<b>Checked</b> ${mins < 1 ? 'just now' : mins === 1 ? '1 minute ago' : mins < 90 ? mins + ' minutes ago' : Math.round(mins / 60) + ' hours ago'}`;
+  }
+  setInterval(() => { const el = document.getElementById('checked'); if (el) el.innerHTML = checkedText(); }, 30000);
+
+  // Counties whose results changed since you last opened their page.
+  let seen = null;
+  try { seen = JSON.parse(localStorage.getItem('seenCounty') || 'null'); } catch (e) {}
+  function markSeen(names) {
+    if (!CTY) return;
+    seen = seen || {};
+    names.forEach(n => { const c = CTY.counties[n]; if (c && c.updated) seen[n] = c.updated; });
+    try { localStorage.setItem('seenCounty', JSON.stringify(seen)); } catch (e) {}
+  }
+  const isNew = n => !!(seen && CTY && CTY.counties[n] && CTY.counties[n].updated && seen[n] && seen[n] !== CTY.counties[n].updated);
+  const newTag = n => isNew(n) ? ' <span class="newtag" title="New results since you last opened this county">Updated</span>' : '';
+  function labelCounties() {
+    if (CTY && !seen) markSeen(Object.keys(CTY.counties));  // first visit: start from what's there now
+    [...$('#gCounty').options].forEach(o => { if (o.value) o.textContent = o.value + ' County' + (isNew(o.value) ? ' · updated' : ''); });
   }
 
   // ---------- All races by county ----------
@@ -831,7 +889,7 @@
     $('#tParty').innerHTML = partyHTML(null).replace('<div class="csec">', '<div class="csec" style="margin-top:0">') + '<div class="csec">By county</div>';
     const rows = Object.entries(CTY.counties).sort((a, b) => (b[1].turnout.pct ?? 0) - (a[1].turnout.pct ?? 0));
     $('#tBody').innerHTML = rows.map(([n, c]) => `<tr>
-      <td><button class="linkish" data-county="${esc(n)}">${esc(n)}</button></td>
+      <td><button class="linkish" data-county="${esc(n)}">${esc(n)}</button>${newTag(n)}</td>
       <td><div class="tbar"><div class="track"><span style="width:${c.turnout.pct ?? 0}%"></span></div><b>${c.turnout.pct != null ? c.turnout.pct.toFixed(1) + '%' : '–'}</b></div></td>
       <td class="c num">${fmt(c.turnout.ballots)}</td><td class="c num">${fmt(c.turnout.registered)}</td>${(() => { const p = partyOf(n); return ['dem', 'rep', 'nav'].map(k => `<td class="c num">${pc(prate(p, k))}</td>`).join(''); })()}
       <td class="pin">${esc(c.updated || '')}</td></tr>`).join('');
@@ -1138,20 +1196,78 @@
       <div class="res mid">${res}</div><div class="st">${stat}</div>${spanLine}</div>${openK.has(k) ? `<div class="cdet">${localDetail(c, county)}</div>` : ''}`;
   }
 
+  // ---------- Summary: the big races, the Legislature, turnout and the closest races ----------
+  function renderSummary() {
+    if (!live) { $('#sumBody').innerHTML = '<div class="empty">Loading results…</div>'; return; }
+    const rs = rows();
+    renderCards(rs);  // the Governor, Senate and seat cards also used on the Partisan tab
+    const t = CTY && CTY.turnout;
+    const close = rs.filter(x => x.cur.m != null && !STATEWIDE.has(x.r.office)).sort((a, b) => Math.abs(a.cur.m) - Math.abs(b.cur.m)).slice(0, 8);
+    const turnout = t ? `<div class="card"><h2>Turnout so far</h2><div class="big">${t.pct != null ? t.pct.toFixed(1) + '%' : '–'}</div>
+      <div class="sub">${fmt(t.ballots)} ballots counted of ${fmt(t.registered)} registered voters. Ballots postmarked by Election Day still count if they arrive within seven days, so this keeps rising.</div></div>` : '';
+    $('#sumBody').innerHTML = `<p class="lede">Oregon's November 3, 2026 general election, as the votes are counted.</p>
+      <div class="cards">${$('#cards').innerHTML}${turnout}</div>
+      <div class="csec">Closest races</div><div class="clist">${close.map(x => partyRowHTML(x, '')).join('')}</div>
+      <div class="sumlinks"><a href="#party">Every partisan race</a><a href="#all">Every local race</a><a href="#turnout">Turnout by county</a><a href="#groups">Demographics</a></div>
+      <div class="tnote">Pick a county at the top to see every race on its ballot.</div>`;
+  }
+  $('#sumBody').addEventListener('click', e => toggleRace(e, renderSummary));
+
+  // ---------- How to read this, and full party names on hover ----------
+  function howto(show) {
+    $('#howto').hidden = !show;
+    try { localStorage.setItem('howto', show ? 'open' : 'closed'); } catch (e) {}
+  }
+  { let st = null; try { st = localStorage.getItem('howto'); } catch (e) {} $('#howto').hidden = st === 'closed'; }
+  $('#howtoClose').addEventListener('click', () => howto(false));
+  $('#howtoOpen').addEventListener('click', e => { e.preventDefault(); howto(true); window.scrollTo(0, 0); });
+  const PARTY_FULL = { D: 'Democrat', DEM: 'Democrat', R: 'Republican', REP: 'Republican', PGP: 'Pacific Green', PRO: 'Progressive', LBT: 'Libertarian', LIB: 'Libertarian',
+    IND: 'Independent Party', CON: 'Constitution', WFP: 'Working Families', NAV: 'Nonaffiliated', NLB: 'No Labels', NL: 'No Labels', I: 'Independent' };
+  new MutationObserver(() => document.querySelectorAll('.ptag:not([title]), .cl .p:not([title])').forEach(el => {
+    el.title = el.textContent.trim().split('/').map(x => PARTY_FULL[x] || x).join(' / ');
+  })).observe(document.body, { childList: true, subtree: true });
+
   // ---------- Pinned races ----------
-  function renderPinned() {
-    if (!pins.length) { $('#pinBody').innerHTML = '<div class="empty">Click the ☆ next to any race to pin it here. Pins stay until you unpin them.</div>'; return; }
+  // A link carries its own list of races (#pinned/<keys>), so pins can be shared.
+  let sharedPins = null;
+  const SHARE_BASE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'https://slkester.github.io/oregon-results/' : location.origin + location.pathname;
+  const shareLink = list => SHARE_BASE + '#pinned/' + encodeURIComponent(list.join(','));
+  function pinRows(list) {
     const all = live ? rows() : [];
-    const html = pins.map(k => {
+    return list.map(k => {
       const [kind, a, b] = k.split('|');
       if (kind === 'p') { const x = all.find(x => x.r.office === a && x.r.district === b); return x ? partyRowHTML(x, '') : ''; }
-      const list = a === 'SW' ? ((CTY && CTY.other && CTY.other.SWNON) || {}).contests || [] : ((CTY && CTY.counties[a]) || {}).contests || [];
-      const c = list.find(c => c.id === b);
+      const pool = a === 'SW' ? ((CTY && CTY.other && CTY.other.SWNON) || {}).contests || [] : ((CTY && CTY.counties[a]) || {}).contests || [];
+      const c = pool.find(c => c.id === b);
       return c ? localRowHTML(c, a === 'SW' ? '' : a, raceInfo(c, a === 'SW' ? '' : a), true) : '';
     }).join('');
-    $('#pinBody').innerHTML = `<div class="csec" style="margin-top:0">Pinned races · ${pins.length}</div><div class="clist">${html || '<div class="empty">Loading…</div>'}</div>
-      <div class="tnote">Click a race to open it; click ★ to unpin. Pins are saved in this browser.</div>`;
   }
+  function renderPinned() {
+    if (sharedPins) {
+      const mine = sharedPins.every(pinned);
+      $('#pinBody').innerHTML = `<div class="csec" style="margin-top:0">Races shared with you · ${sharedPins.length}</div><div class="clist">${pinRows(sharedPins) || '<div class="empty">Loading…</div>'}</div>
+        <div class="sumlinks">${mine ? '<span class="tnote">These are all on your Pinned tab.</span>' : '<a href="#" id="keepShared">Add these to my Pinned tab</a>'}</div>
+        <div class="tnote">Results update about every 20 minutes. Bookmark this page to come back to these races. Click a race to open it.</div>`;
+      return;
+    }
+    if (!pins.length) { $('#pinBody').innerHTML = '<div class="empty">Click the ☆ next to any race to pin it here. Pins stay until you unpin them.</div>'; return; }
+    const link = shareLink(pins);
+    $('#pinBody').innerHTML = `<div class="csec" style="margin-top:0">Pinned races · ${pins.length}</div><div class="clist">${pinRows(pins) || '<div class="empty">Loading…</div>'}</div>
+      <div class="share"><b>Share these races</b><input id="shareUrl" readonly value="${esc(link)}"><button type="button" id="copyShare">Copy link</button></div>
+      <div class="tnote">The link opens the shared page with these races. Click a race to open it; click ★ to unpin. Your pins are saved in this browser.</div>`;
+  }
+  $('#pinBody').addEventListener('click', async e => {
+    if (e.target.id === 'copyShare') {
+      const url = $('#shareUrl').value;
+      try { await navigator.clipboard.writeText(url); e.target.textContent = 'Copied'; } catch (err) { $('#shareUrl').select(); e.target.textContent = 'Press ⌘C'; }
+      setTimeout(() => { e.target.textContent = 'Copy link'; }, 2000);
+    }
+    if (e.target.id === 'keepShared') {
+      e.preventDefault();
+      sharedPins.forEach(k => { if (!pinned(k)) togglePin(k); });
+      renderPinned();
+    }
+  });
 
   // ---------- One county ----------
   const BALLOT = ['Governor', 'U.S. Senate', 'U.S. House', 'State Senate', 'State House'];
@@ -1160,9 +1276,12 @@
     if (!CSEL) return;
     const cty = CTY && CTY.counties[CSEL];
     const t = cty ? cty.turnout : null;
-    $('#cHead').innerHTML = `<div class="chead"><div><h2>${esc(CSEL)} County</h2>
+    const fresh = isNew(CSEL);
+    $('#cHead').innerHTML = `<div class="chead"><div><h2>${esc(CSEL)} County${fresh ? ' <span class="newtag">Updated since your last visit</span>' : ''}</h2>
       <div class="sub">${cty && cty.updated ? 'Secretary of State results updated ' + esc(cty.updated) : ''}${cty && cty.stale ? ' · <span style="color:var(--warn)">stale</span>' : ''}</div>${whoHTML(CSEL)}</div>
       <div class="tnum">${t ? `<div class="big">${t.pct != null ? t.pct.toFixed(1) + '%' : '–'}</div><div class="sub">turnout · ${fmt(t.ballots)} of ${fmt(t.registered)} registered</div>` : ''}</div></div>`;
+
+    markSeen([CSEL]); labelCounties();
 
     // federal and state races on this county's ballot
     let party = [];
@@ -1202,17 +1321,20 @@
   let view = 'party';
   function showView(v) {
     if (v && v.startsWith('county/')) { CSEL = decodeURIComponent(v.slice(7)); v = 'county'; }
-    if (!v && pins.length) v = 'pinned';
-    view = ['pinned', 'party', 'all', 'turnout', 'county', 'groups'].includes(v) && (v !== 'county' || CSEL) ? v : 'party';
+    sharedPins = null;
+    if (v && v.startsWith('pinned/')) { sharedPins = decodeURIComponent(v.slice(7)).split(',').filter(Boolean); v = 'pinned'; }
+    if (!v) v = pins.length ? 'pinned' : 'summary';
+    view = ['summary', 'pinned', 'party', 'all', 'turnout', 'county', 'groups'].includes(v) && (v !== 'county' || CSEL) ? v : 'party';
     if (view !== 'county') CSEL = '';
     $('#gCounty').value = CSEL;
     document.querySelectorAll('#views button').forEach(b => b.classList.toggle('on', b.dataset.v === view));
-    $('#vParty').hidden = view !== 'party'; $('#vAll').hidden = view !== 'all'; $('#vTurnout').hidden = view !== 'turnout'; $('#vCounty').hidden = view !== 'county'; $('#vGroups').hidden = view !== 'groups'; $('#vPinned').hidden = view !== 'pinned';
+    $('#vParty').hidden = view !== 'party'; $('#vAll').hidden = view !== 'all'; $('#vTurnout').hidden = view !== 'turnout'; $('#vCounty').hidden = view !== 'county'; $('#vGroups').hidden = view !== 'groups'; $('#vPinned').hidden = view !== 'pinned'; $('#vSummary').hidden = view !== 'summary';
     if (view === 'county') { renderCounty(); window.scrollTo(0, 0); }
     if (view === 'all') renderAll();
     if (view === 'turnout') renderTurnout();
     if (view === 'groups') renderGroups();
     if (view === 'pinned') renderPinned();
+    if (view === 'summary') renderSummary();
   }
   $('#gRace').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.r) gRace = b.dataset.r; if (b.dataset.m) gMode = b.dataset.m; renderGroups(); });
   $('#gHead').addEventListener('click', e => { const t = e.target.closest('th[data-s]'); if (!t) return; gSort = [t.dataset.s, gSort[0] === t.dataset.s ? -gSort[1] : 1]; renderGroups(); });
@@ -1233,7 +1355,7 @@
     const b = e.target.closest('.pinb'); if (!b) return;
     e.stopPropagation();
     togglePin(b.dataset.pin);
-    if (view === 'party') render(); if (view === 'all') renderAll(); if (view === 'county') renderCounty(); if (view === 'pinned') renderPinned();
+    if (view === 'party') render(); if (view === 'all') renderAll(); if (view === 'county') renderCounty(); if (view === 'pinned') renderPinned(); if (view === 'summary') renderSummary();
   }, true);
   $('#pinBody').addEventListener('click', e => toggleRace(e, renderPinned));
   $('#aList').addEventListener('click', e => toggleRace(e, renderAll));
@@ -1277,12 +1399,14 @@
     live = l; H = h; TH = th; DEM = dm; XP = xp;
     sharedMode();
     CTY = await getJSON('counties.json', bust);
+    labelCounties();
     render();
     if (view === 'all') renderAll();
     if (view === 'turnout') renderTurnout();
     if (view === 'county') renderCounty();
     if (view === 'groups') renderGroups();
     if (view === 'pinned') renderPinned();
+    if (view === 'summary') renderSummary();
   }
 
   $('#fOffice').addEventListener('click', e => {
